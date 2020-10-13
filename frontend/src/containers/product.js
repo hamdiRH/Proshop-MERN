@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap';
 import Rating from '../components/Rating';
-import products from '../products';
-import PropTypes from 'prop-types';
 
 const Product = () => {
   const params = useParams();
-  const product = products.find((p) => p._id === params.id);
+  const [product, setProduct] = useState([]);
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const { data } = await axios.get(
+        `http://localhost:5000/api/product/${params.id}`,
+      );
+      setProduct(data);
+    };
+    fetchProduct();
+  }, [params]);
   return (
     <>
       <Link className="btn btn-dark my-3" to="/">
@@ -67,7 +75,5 @@ const Product = () => {
     </>
   );
 };
-
-Product.propTypes = {};
 
 export default Product;

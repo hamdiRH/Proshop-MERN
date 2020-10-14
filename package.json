@@ -9,7 +9,9 @@
     "restart": "rimraf dist && yarn build && yarn start",
     "server": "nodemon --exec yarn restart",
     "client": "npm start --prefix frontend",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "data:import": "node  -r esm backend/seeder",
+    "data:destroy": "node  -r esm backend/seeder -d"
   },
   "repository": {
     "type": "git",
@@ -22,10 +24,19 @@
   },
   "homepage": "https://github.com/hamdiRH/Proshop-MERN#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "colors": "^1.4.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
+    "esm": "^3.2.25",
     "express": "^4.17.1",
-    "rimraff": "0.0.1-security"
+    "express-async-handler": "^1.1.4",
+    "joi": "^17.2.1",
+    "moment": "^2.29.1",
+    "mongoose": "^5.10.9",
+    "rimraff": "0.0.1-security",
+    "swagger-jsdoc": "^4.3.0",
+    "swagger-ui-express": "^4.1.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.11.6",

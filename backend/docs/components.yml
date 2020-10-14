@@ -1,0 +1,132 @@
+components:
+    schemas:
+        User:
+            type: object
+            properties:
+                id:
+                    type: string
+                name:
+                    type: string
+                email:
+                    type: string
+                password:
+                    type: string
+                isAdmin:
+                    type: boolean
+            exemple:
+                name: Admin User
+                email: admin@example.com
+                password: 123456
+        Product:
+            type: object
+            properties:
+                id:
+                    type: string
+                name:
+                    type: string
+                image:
+                    type: string
+                brand:
+                    type: string
+                category:
+                    type: string
+                description:
+                    type: string
+                reviews:
+                    type: object
+                    $ref: '#/components/schemas/Review'
+                rating:
+                    type: number
+                numReviews:
+                    type: number
+                price:
+                    type: number
+                cpuntInStock:
+                    type: number
+            exemple:
+                name: "Airpods Wireless Bluetooth Headphones"
+                image: "/images/airpods.jpg"
+                description: "Bluetooth technology lets you connect it with compatible devices wirelessly High-quality AAC audio offers immersive listening experience Built-in microphone allows you to take calls while working"
+                brand: "Apple"
+                category: "Electronics"
+                price: 89.99
+                countInStock: 10
+                rating: 4.5
+                numReviews: 12
+        Review:
+            type: object
+            properties:
+                id:
+                    type: string
+                name:
+                    type: string
+                rating:
+                    type: number
+                comment:
+                    type: string
+        Order:
+            type: object
+            properties:
+                id:
+                    type: string
+                user:
+                    type: object
+                    $ref: '#/components/schemas/User'
+                orderItems:
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            name:
+                                type: string
+                            qty:
+                                type: number
+                            image:
+                                type: string
+                            price:
+                                type: number
+                            product:
+                                type: object
+                                $ref: '#/components/schemas/Product'
+                shippingAddress:
+                    type: object
+                    properties:
+                        address:
+                            type: string
+                        city:
+                            type: string
+                        postalCode:
+                            type: string
+                        country:
+                            type: string
+                paymentMethod:
+                    type: string
+                paymentResult:
+                    type: object
+                    properties:
+                        id:
+                            type: string
+                        status:
+                            type: string
+                        update_time:
+                            type: string
+                        email_adresse:
+                            type: string                                string
+                taxPrice:
+                    type: number
+                shippingPrice:
+                    type: number
+                totalPrice:
+                    type: number
+                isPaid:
+                    type: boolean
+                paidAt:
+                    type: date
+                isDelivered:
+                    type: boolean
+                deliveredAt:
+                    type: date
+                
+                
+                
+                

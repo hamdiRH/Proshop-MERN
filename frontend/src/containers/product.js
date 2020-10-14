@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
+import Loader from '../components/Loader';
+import Message from '../components/Message';
 import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap';
 import Rating from '../components/Rating';
 import { listProductDetails } from '../redux/actions/productActions';
@@ -17,63 +19,71 @@ const Product = () => {
 
   useEffect(() => {
     dispatch(listProductDetails(params.id));
-  }, [params]);
+  }, [params, dispatch]);
   return (
     <>
       <Link className="btn btn-dark my-3" to="/">
         Go back
       </Link>
-      <Row>
-        <Col md={6}>
-          <Image src={product.image} alt={product.name} fluid />
-        </Col>
-        <Col md={3}>
-          <ListGroup variant="flush">
-            <ListGroup.Item>
-              <h2>{product.name}</h2>
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <Rating
-                value={product.rating}
-                text={`${product.numReviews} reviews`}
-              />
-            </ListGroup.Item>
-            <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
-            <ListGroup.Item>Description: {product.description}</ListGroup.Item>
-          </ListGroup>
-        </Col>
-        <Col md={3}>
-          <Card>
+      {loading.product ? (
+        <Loader />
+      ) : error.product ? (
+        <Message variant="danger">{error.product}</Message>
+      ) : (
+        <Row>
+          <Col md={6}>
+            <Image src={product.image} alt={product.name} fluid />
+          </Col>
+          <Col md={3}>
             <ListGroup variant="flush">
               <ListGroup.Item>
-                <Row>
-                  <Col>Price:</Col>
-                  <Col>
-                    <strong>${product.price}</strong>
-                  </Col>
-                </Row>
+                <h2>{product.name}</h2>
               </ListGroup.Item>
               <ListGroup.Item>
-                <Row>
-                  <Col>Status:</Col>
-                  <Col>
-                    {product.countInStock > 0 ? 'In Stock' : 'Out Of Stock'}
-                  </Col>
-                </Row>
+                <Rating
+                  value={product.rating}
+                  text={`${product.numReviews} reviews`}
+                />
               </ListGroup.Item>
+              <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
               <ListGroup.Item>
-                <Button
-                  className="btn-block"
-                  type="button"
-                  disabled={product.countInStock === 0}
-                >
-                  Add To Cart
-                </Button>
+                Description: {product.description}
               </ListGroup.Item>
             </ListGroup>
-          </Card>
-        </Col>
-      </Row>
+          </Col>
+          <Col md={3}>
+            <Card>
+              <ListGroup variant="flush">
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Price:</Col>
+                    <Col>
+                      <strong>${product.price}</strong>
+                    </Col>
+                  </Row>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Status:</Col>
+                    <Col>
+                      {product.countInStock > 0 ? 'In Stock' : 'Out Of Stock'}
+                    </Col>
+                  </Row>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Button
+                    className="btn-block"
+                    type="button"
+                    disabled={product.countInStock === 0}
+                  >
+                    Add To Cart
+                  </Button>
+                </ListGroup.Item>
+              </ListGroup>
+            </Card>
+          </Col>
+        </Row>
+      )}
     </>
   );
 };

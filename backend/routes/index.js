@@ -4,7 +4,7 @@ import productRoute from './productRoutes';
 
 const router = express.Router();
 
-router.use('/v1/docs', docsRoute);
-router.use('/products', productRoute);
+router.use('/v1/doc', docsRoute);
+router.use('/product', productRoute);
 
 export default router;

@@ -1,10 +1,12 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { fork } from 'redux-saga/effects';
 import thunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import productListReducer from './reducers/productProducer';
 import cartReducer from './cart/reducers';
-// import rootSaga from './saga'
+import productSaga from './product/saga';
+
 const reducer = combineReducers({
   productList: productListReducer,
   cart: cartReducer,
@@ -13,7 +15,7 @@ const reducer = combineReducers({
 //   ? JSON.parse(localStorage.getItem('cartItems'))
 //   : [];
 // const initialState = { cart: { cartItems: cartItemsFromStorage } };
-const initialState = { };
+const initialState = {};
 const sagaMiddleware = createSagaMiddleware();
 const middleware = [thunk, sagaMiddleware];
 const store = createStore(
@@ -21,11 +23,9 @@ const store = createStore(
   initialState,
   composeWithDevTools(applyMiddleware(...middleware)),
 );
-// import productSaga from './product/saga'
-// function* rootSaga() {
-//   yield [
-//     fork()
-//   ]
-// }
-// sagaMiddleware.run(rootSaga)
+
+function* rootSaga() {
+  yield [fork(productSaga)];
+}
+sagaMiddleware.run(rootSaga);
 export default store;

@@ -12,8 +12,8 @@ import {
   Card,
 } from 'react-bootstrap';
 import Message from '../components/Message';
-import { addToCart } from '../redux/cart/actions';
-import PropTypes from 'prop-types';
+import { addToCart, removeFromCart } from '../redux/cart/actions';
+
 
 const Cart = () => {
   const params = useParams();
@@ -29,7 +29,10 @@ const Cart = () => {
     if (productId) dispatch(addToCart(productId, qty));
   }, [dispatch, productId, qty]);
   const removeFromCarthandler = (id) => {
-    console.log('remove');
+    dispatch(removeFromCart(id));
+  };
+  const checkoutHandler = () => {
+    history.push('/login?redirect=shipping');
   };
   return (
     <Row>
@@ -91,6 +94,20 @@ const Cart = () => {
                 Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
                 items
               </h2>
+              $
+              {cartItems
+                .reduce((acc, item) => acc + item.qty * item.price, 0)
+                .toFixed(2)}
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <Button
+                type="button"
+                className="btn-block"
+                disabled={_.isEmpty(cartItems)}
+                onClick={checkoutHandler}
+              >
+                Proceed To Checkout
+              </Button>
             </ListGroup.Item>
           </ListGroup>
         </Card>

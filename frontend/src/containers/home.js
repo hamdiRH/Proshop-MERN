@@ -4,6 +4,7 @@ import { Row, Col } from 'react-bootstrap';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Product from '../components/Product';
+import { Helmet } from 'react-helmet';
 import { listProducts } from '../redux/actions/productActions';
 
 const Home = () => {
@@ -15,6 +16,13 @@ const Home = () => {
   }, [dispatch]);
   return (
     <>
+      <Helmet>
+        <title>Proshop</title>
+        <meta
+          name="description"
+          content="home page"
+        />
+      </Helmet>
       <h1>Latest Products</h1>
       {loading.products ? (
         <Loader />

@@ -8,7 +8,6 @@ const initialState = {
 
 const reducer = (state = initialState, { type, payload }) =>
   produce(state, (draft) => {
-    console.log(payload);
     switch (type) {
       case CONSTANTS.PRODUCT_LIST_REQUEST:
         draft.loading.products = true;

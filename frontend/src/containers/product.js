@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useHistory } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import {
@@ -25,9 +26,9 @@ const Product = () => {
   const params = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
-  const loading=useSelector(selectProductLoading);
-  const error=useSelector(selectProductError);
-  const product=useSelector(selectProductData);
+  const loading = useSelector(selectProductLoading);
+  const error = useSelector(selectProductError);
+  const product = useSelector(selectProductData);
 
   useEffect(() => {
     dispatch(listProductDetails(params.id));
@@ -37,6 +38,10 @@ const Product = () => {
   };
   return (
     <>
+      <Helmet>
+        <title>Proshop</title>
+        <meta name="description" content="product page" />
+      </Helmet>
       <Link className="btn btn-dark my-3" to="/">
         Go back
       </Link>

@@ -20,9 +20,31 @@ export function* fetchProductsList() {
   }
 }
 
+export function* listProductDetails({id}) {
+    try {
+      const data = yield call(api.fechProductDetail,id);
+
+      yield put({
+        type: CONSTANTS.PRODUCT_DETAILS_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      yield put({
+        type: CONSTANTS.PRODUCT_DETAILS_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  }
+
 export function* fetchProductsListWatcher() {
   yield takeEvery(CONSTANTS.PRODUCT_LIST_REQUEST, fetchProductsList);
 }
+export function* listProductDetailsWatcher() {
+    yield takeEvery(CONSTANTS.PRODUCT_DETAILS_REQUEST, listProductDetails);
+  }
 export default function* productSaga() {
-  yield all([fetchProductsListWatcher()]);
+  yield all([fetchProductsListWatcher(),listProductDetailsWatcher()]);
 }

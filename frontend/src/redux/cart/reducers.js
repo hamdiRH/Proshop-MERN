@@ -1,6 +1,6 @@
 import * as CONSTANTS from './constants';
 import produce from 'immer';
-const initialState = {
+export const initialState = {
   loading: { cartItems: false },
   data: {
     cartItems: localStorage.getItem('cartItems')

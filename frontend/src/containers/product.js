@@ -13,19 +13,21 @@ import {
   Form,
 } from 'react-bootstrap';
 import Rating from '../components/Rating';
-import { listProductDetails } from '../redux/actions/productActions';
+import { listProductDetails } from '../redux/product/actions';
+import {
+  selectProductData,
+  selectProductLoading,
+  selectProductError,
+} from '../redux/product/selectors';
 
 const Product = () => {
   const [qty, setQty] = useState(1);
   const params = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
-  const producDetails = useSelector((state) => state.productList);
-  const {
-    loading,
-    error,
-    data: { product },
-  } = producDetails;
+  const loading=useSelector(selectProductLoading);
+  const error=useSelector(selectProductError);
+  const product=useSelector(selectProductData);
 
   useEffect(() => {
     dispatch(listProductDetails(params.id));

@@ -1,6 +1,6 @@
 import * as CONSTANTS from '../constants';
 import produce from 'immer';
-const initialState = {
+export const initialState = {
   loading: { products: false, product: false },
   data: { products: [], product: { reviews: [] } },
   error: { products: '', product: '' },

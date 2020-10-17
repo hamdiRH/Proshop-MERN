@@ -11,8 +11,18 @@ import products from "./data/products";
 const app = express();
 // dotenv.config();
 connectDB();
+// parse json request body
+app.use(express.json());
+
+// parse urlencoded request body
+app.use(express.urlencoded({ extended: true }));
+
+// enable cors
 app.use(cors());
+app.options('*', cors());
+
 app.use(morgan('dev'))
+
 app.get("/", (req, res) => {
   res.send("API is running");
 });

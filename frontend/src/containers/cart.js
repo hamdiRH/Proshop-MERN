@@ -26,8 +26,6 @@ const Cart = () => {
   const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch();
-  // const { data } = useSelector((state) => state.cart);
-  // const { cartItems } = data;
   const cartItems = useSelector(selectCartItemsData);
   const loading = useSelector(selectCartItemsLoading);
   const error = useSelector(selectCartItemsError);

@@ -1,33 +1,12 @@
 import express from 'express';
-import asyncHandler from 'express-async-handler';
-import Product from '../models/product.model';
+import * as productController from '../controllers/product.controller';
+import * as productValidation from '../validations/product.validation';
+import validate from '../middleware/validate';
 const router = express.Router();
 
-//@des fetch all products
-//@route GET /api/products
-//@access Public
-router.get(
-  '/',
-  asyncHandler(async (req, res) => {
-    const products = await Product.find({});
-    res.json(products);
-  })
-);
 
-//@des fetch single product
-//@route GET /api/products/:id
-//@access Public
-router.get(
-  '/:id',
-  asyncHandler(async (req, res) => {
-    const product = await Product.findById(req.params.id);
-    if (product) res.json(product);
-    else {
-      res.status(404);
-      throw new Error('Product not found');
-    }
-  })
-);
+router.get('/', productController.getProducts);
+router.get('/:id',validate(productValidation.getById), productController.getProductById);
 
 export default router;
 
@@ -41,7 +20,7 @@ export default router;
 /**
  * @swagger
  * path:
- *  /products:
+ *  /product:
  *    get:
  *      summary: Get all products
  *      description: Fetch all products
@@ -58,7 +37,7 @@ export default router;
 /**
  * @swagger
  * path:
- *  /products/{id}:
+ *  /product/{id}:
  *    get:
  *      summary: Get a product
  *      description: get one product by id

@@ -126,7 +126,18 @@ components:
                     type: boolean
                 deliveredAt:
                     type: date
-                
+        Error:
+            type: object
+            properties:
+                code:
+                    type: number
+                message:
+                    type: string
+    securitySchemes:
+        bearerAuth:
+            type: http
+            scheme: bearer
+            bearerFormat: JWT        
                 
                 
                 

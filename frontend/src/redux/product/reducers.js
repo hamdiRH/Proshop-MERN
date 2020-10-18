@@ -1,4 +1,4 @@
-import * as CONSTANTS from '../constants';
+import * as CONSTANTS from './constants';
 import produce from 'immer';
 export const initialState = {
   loading: { products: false, product: false },

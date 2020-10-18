@@ -1,4 +1,4 @@
-import * as CONSTANTS from '../constants';
+import * as CONSTANTS from './constants';
 
 export const listProducts = () => ({
   type: CONSTANTS.PRODUCT_LIST_REQUEST,

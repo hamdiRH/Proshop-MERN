@@ -1,7 +1,18 @@
 import React from 'react';
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import _ from 'lodash'
+import { useDispatch, useSelector } from 'react-redux';
+import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import { logout } from '../redux/auth/actions';
+import {
+  selectAuthData,
+} from '../redux/auth/selectors';
 const Header = () => {
+  const dispatch = useDispatch();
+  const userInfo = useSelector(selectAuthData);
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
   return (
     <header>
       <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
@@ -17,11 +28,22 @@ const Header = () => {
                   <i className="fas fa-shopping-cart"></i> Cart
                 </Nav.Link>
               </LinkContainer>
-              <LinkContainer to="/login">
-                <Nav.Link>
-                  <i className="fas fa-user"></i> Sign In
-                </Nav.Link>
-              </LinkContainer>
+              {!_.isEmpty(userInfo) ? (
+                <NavDropdown title={userInfo.name} id="username">
+                  <LinkContainer to="/profile">
+                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                  </LinkContainer>
+                  <NavDropdown.Item onClick={logoutHandler}>
+                    logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              ) : (
+                <LinkContainer to="/login">
+                  <Nav.Link>
+                    <i className="fas fa-user"></i> Sign In
+                  </Nav.Link>
+                </LinkContainer>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>

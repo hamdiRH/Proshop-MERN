@@ -7,6 +7,9 @@ export const products = {
   getOne: (id) => `/product/${id}`,
 };
 export const auth = {
-  login:'/user/login',
-  register:'/user/register'
-}
+  login: '/user/login',
+  register: '/user/register',
+};
+export const users = {
+  getDetails: (id) => `/user/${id}`,
+};

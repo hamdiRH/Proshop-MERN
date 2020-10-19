@@ -9,14 +9,15 @@ export const regiserUser = async ({ email, password, name }, res) => {
     name,
     password,
   });
-  if (user) return {
-    _id: user._id,
-    name: user.name,
-    email: user.email,
-    isAdmin: user.isAdmin,
-    token: generateToken(user._id),
-  }
-  else return null
+  if (user)
+    return {
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+      token: generateToken(user._id),
+    };
+  else return null;
 };
 
 export const authUser = async ({ email, password }) => {
@@ -42,4 +43,21 @@ export const getProfile = async (req) => {
       isAdmin: user.isAdmin,
     };
   else return null;
+};
+
+export const updateProfile = async ({ user, body }) => {
+  const userProfile = await User.findById(user._id);
+  if (userProfile) {
+    userProfile.name = body.name || userProfile.name;
+    userProfile.email = body.email || userProfile.email;
+    if (body.password) userProfile.password = body.password;
+    const updatedUserProfile = await userProfile.save();
+    return {
+      _id: updatedUserProfile._id,
+      name: updatedUserProfile.name,
+      email: updatedUserProfile.email,
+      isAdmin: updatedUserProfile.isAdmin,
+      token: generateToken(user._id),
+    };
+  } else return null;
 };

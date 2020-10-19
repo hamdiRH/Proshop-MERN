@@ -37,9 +37,11 @@ const reducer = (state = initialState, { type, payload }) =>
         break;
       case CONSTANTS.USER_REGISTER_SUCCESS:
         draft.loading.register = false;
+        draft.data.userInfo = payload;
         break;
       case CONSTANTS.USER_REGISTER_FAIL:
         draft.loading.register = false;
+        draft.error.register = payload;
         break;
       default:
         return draft;

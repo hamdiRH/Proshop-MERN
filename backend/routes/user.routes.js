@@ -8,7 +8,10 @@ const router = express.Router();
 
 router.post('/login', validate(userValidation.login), userController.authUser);
 router.post('/register', validate(userValidation.register), userController.registerUser);
-router.get('/profile', auth, userController.getUserProfile);
+router
+  .route('/profile')
+  .get(auth, userController.getUserProfile)
+  .put(auth, validate(userValidation.updateProfile), userController.updateProfile);
 
 export default router;
 
@@ -117,7 +120,6 @@ export default router;
  *                message: Invalid data
  */
 
-
 /**
  * @swagger
  * path:
@@ -136,3 +138,52 @@ export default router;
  *              schema:
  *                 $ref: '#/components/schemas/User'
  * */
+
+/**
+ * @swagger
+ * path:
+ *  /user/profile:
+ *    put:
+ *      summary: Profile
+ *      tags: [User]
+ *      security:
+ *        - bearerAuth: []
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              required:
+ *                - email
+ *                - password
+ *                - name
+ *              properties:
+ *                name:
+ *                  type: string
+ *                email:
+ *                  type: string
+ *                  format: email
+ *                password:
+ *                  type: string
+ *                  format: password
+ *      responses:
+ *        "200":
+ *          description: OK
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                properties:
+ *                  user:
+ *                    $ref: '#/components/schemas/User'
+ *        "401":
+ *          description: Unauthorized
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/Error'
+ *              example:
+ *                code: 401
+ *                message: Unauthorized or Invalid data
+ */

@@ -39,3 +39,15 @@ export const getUserProfile = asyncHandler(async (req, res) => {
     throw new Error('User not found');
   }
 });
+
+//@des Update user profile
+//@route PUT /api/user/profile
+//@access Private
+export const updateProfile = asyncHandler(async (req, res) => {
+  const profile = await userService.updateProfile(req);
+  if (profile) res.status(200).send(profile);
+  else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+});

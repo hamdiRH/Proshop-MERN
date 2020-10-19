@@ -15,3 +15,11 @@ export const register = {
     password: Joi.string().required(),
   }),
 };
+
+export const updateProfile = {
+  body: Joi.object().keys({
+    name: Joi.string().required(),
+    email: Joi.string().required(),
+    password: Joi.string().required(),
+  }),
+};

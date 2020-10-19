@@ -6,7 +6,7 @@ export const login = (payload) => ({
 });
 
 export const register = (payload) => ({
-  type: CONSTANTS.USER_LOGIN_REQUEST,
+  type: CONSTANTS.USER_REGISTER_REQUEST,
   payload,
 });
 

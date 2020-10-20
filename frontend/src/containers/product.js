@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useHistory } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
-import Loader from '../components/Loader';
-import Message from '../components/Message';
 import {
   Row,
   Col,
@@ -13,6 +10,9 @@ import {
   Button,
   Form,
 } from 'react-bootstrap';
+import { Helmet } from 'react-helmet';
+import Loader from '../components/Loader';
+import Message from '../components/Message';
 import Rating from '../components/Rating';
 import { listProductDetails } from '../redux/product/actions';
 import {

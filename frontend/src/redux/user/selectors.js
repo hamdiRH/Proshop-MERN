@@ -1,29 +1,35 @@
 import { createSelector } from 'reselect';
 import { initialState } from './reducers';
 
-const selectAuth = (state) => state.auth || initialState;
+const selectUser = (state) => state.user || initialState;
 
-const selectAuthInfo = createSelector(selectAuth, (substate) => substate);
+const selectUserDetails = createSelector(selectUser, (substate) => substate);
 
-const selectAuthData = createSelector(
-  selectAuth,
+const selectUserData = createSelector(
+  selectUser,
+  (substate) => substate.data.user,
+);
+
+const selectUpdatedUserData = createSelector(
+  selectUser,
   (substate) => substate.data.userInfo,
 );
 
-const selectAuthLoading = createSelector(
-  selectAuth,
+const selectUserLoading = createSelector(
+  selectUser,
   (substate) => substate.loading,
 );
 
-const selectAuthError = createSelector(
-  selectAuth,
+const selectUserError = createSelector(
+  selectUser,
   (substate) => substate.error,
 );
 
-export default selectAuthInfo;
+export default selectUserDetails;
 export {
-  selectAuthInfo,
-  selectAuthData,
-  selectAuthLoading,
-  selectAuthError,
+  selectUpdatedUserData,
+  selectUserDetails,
+  selectUserData,
+  selectUserLoading,
+  selectUserError,
 };

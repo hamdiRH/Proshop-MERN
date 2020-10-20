@@ -24,6 +24,11 @@
   },
   "homepage": "https://github.com/hamdiRH/Proshop-MERN#readme",
   "dependencies": {
+    "@babel/cli": "^7.11.6",
+    "@babel/core": "^7.11.6",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.11.0",
+    "@babel/preset-env": "^7.11.5",
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
     "cors": "^2.8.5",
@@ -37,16 +42,12 @@
     "moment": "^2.29.1",
     "mongoose": "^5.10.9",
     "morgan": "^1.10.0",
-    "rimraff": "0.0.1-security",
+    "nodemon": "^2.0.6",
+    "rimraf": "^3.0.2",
     "swagger-jsdoc": "^4.3.0",
     "swagger-ui-express": "^4.1.4"
   },
   "devDependencies": {
-    "@babel/cli": "^7.11.6",
-    "@babel/core": "^7.11.6",
-    "@babel/preset-env": "^7.11.5",
-    "@babel/plugin-proposal-class-properties": "^7.10.4",
-    "@babel/plugin-proposal-object-rest-spread": "^7.11.0",
     "concurrently": "^5.3.0"
   }
 }

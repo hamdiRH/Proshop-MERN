@@ -18,8 +18,8 @@ export const register = {
 
 export const updateProfile = {
   body: Joi.object().keys({
-    name: Joi.string().required(),
-    email: Joi.string().required(),
-    password: Joi.string().required(),
+    name: Joi.string(),
+    email: Joi.string(),
+    password: Joi.string(),
   }),
 };

@@ -1,13 +1,16 @@
 import * as CONSTANTS from './constants';
 import produce from 'immer';
 export const initialState = {
-  loading: { cartItems: false },
+  loading: { cartItems: false, shippingAddress: false },
   data: {
     cartItems: localStorage.getItem('cartItems')
       ? JSON.parse(localStorage.getItem('cartItems'))
       : [],
+      shippingAddress: localStorage.getItem('shippingAddress')
+      ? JSON.parse(localStorage.getItem('shippingAddress'))
+      : {},
   },
-  error: { cartItems: '' },
+  error: { cartItems: '', shippingAddress: '' },
 };
 
 const reducer = (state = initialState, { type, payload }) =>
@@ -40,7 +43,16 @@ const reducer = (state = initialState, { type, payload }) =>
       case CONSTANTS.CART_REMOVE_ITEM_FAIL:
         draft.loading.cartItems = false;
         break;
-
+      case CONSTANTS.CART_SAVE_ADDRESS_REQUEST:
+        draft.loading.shippingAddress = true;
+        break;
+      case CONSTANTS.CART_SAVE_ADDRESS_SUCCESS:
+        draft.loading.shippingAddress = false;
+        draft.data.shippingAddress = payload;
+        break;
+      case CONSTANTS.CART_SAVE_ADDRESS_FAIL:
+        draft.loading.shippingAddress = false;
+        break;
       default:
         return draft;
     }

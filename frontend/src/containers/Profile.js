@@ -56,7 +56,7 @@ const Profile = () => {
     <>
       <Helmet>
         <title>Proshop</title>
-        <meta name="description" content="login page" />
+        <meta name="description" content="Profile page" />
       </Helmet>
       <Row>
         <Col md={3}>

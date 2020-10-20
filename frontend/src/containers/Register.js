@@ -49,7 +49,7 @@ const Register = () => {
     <>
       <Helmet>
         <title>Proshop</title>
-        <meta name="description" content="login page" />
+        <meta name="description" content="Register page" />
       </Helmet>
       <FormContainer>
         <h1>Sign Up</h1>

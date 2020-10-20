@@ -9,4 +9,8 @@ export const removeFromCart = (id) =>({
     type: CONSTANTS.CART_REMOVE_ITEM_REQUEST,
     id
 })
+export const saveShppingAdress = (address) =>({
+  type: CONSTANTS.CART_SAVE_ADDRESS_REQUEST,
+  address
+})
 

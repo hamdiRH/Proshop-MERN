@@ -55,12 +55,36 @@ export function* removeFromCart({ id }) {
   }
 }
 
+
+export function* saveShppingAdress({address}) {
+  try {
+    const state = yield select();
+
+    yield put({
+      type: CONSTANTS.CART_SAVE_ADDRESS_SUCCESS,
+      payload: address,
+    });
+    localStorage.setItem(
+      'shippingAddress',
+      JSON.stringify(address),
+    );
+  } catch (error) {
+    yield put({
+      type: CONSTANTS.CART_SAVE_ADDRESS_FAIL,
+    });
+  }
+}
+
 export function* addToCartWatcher() {
   yield takeEvery(CONSTANTS.CART_ADD_ITEM_REQUEST, addToCart);
 }
 export function* removeFromCartWatcher() {
   yield takeEvery(CONSTANTS.CART_REMOVE_ITEM_REQUEST, removeFromCart);
 }
+export function* saveShppingAdressWatcher() {
+  yield takeEvery(CONSTANTS.CART_SAVE_ADDRESS_REQUEST, saveShppingAdress);
+}
+
 export default function* productSaga() {
-  yield all([addToCartWatcher(), removeFromCartWatcher()]);
+  yield all([addToCartWatcher(), removeFromCartWatcher(),saveShppingAdressWatcher()]);
 }

@@ -10,6 +10,11 @@ const selectCartItemsData = createSelector(
   (substate) => substate.data.cartItems,
 );
 
+const selectShippingCartAdress = createSelector(
+  selectCart,
+  (substate) => substate.data.shippingAddress,
+);
+
 const selectCartItemsLoading = createSelector(
   selectCart,
   (substate) => substate.loading.cartItems,
@@ -26,4 +31,5 @@ export {
   selectCartItemsData,
   selectCartItemsLoading,
   selectCartItemsError,
+  selectShippingCartAdress
 };

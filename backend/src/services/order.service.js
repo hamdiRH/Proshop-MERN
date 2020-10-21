@@ -23,3 +23,9 @@ export const addOrderItems = async ({ body, user }) => {
     return createdOrder;
   }
 };
+
+export const getOrderItemsById = async ({ params }) => {
+  const order = (await Order.findOne({ _id: params.id })).populate('user','name email').execPopulate();
+  if (!order) throw new Error('Order not found');
+  return order;
+};

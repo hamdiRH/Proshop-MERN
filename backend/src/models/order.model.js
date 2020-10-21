@@ -75,5 +75,5 @@ const orderSchema = mongoose.Schema(
 )
 
 const Order = mongoose.model('Order', orderSchema)
-orderSchema.plugin(mongooseAutopopulate)
+orderSchema.plugin(require('mongoose-autopopulate'))
 export default Order

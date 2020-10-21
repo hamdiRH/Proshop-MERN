@@ -5,10 +5,10 @@ import { auth } from '../middleware/auth';
 
 const router = express.Router();
 
-router.route('/').post(auth, /*validate(orderValidation.addOrderItems),*/ orderController.addOrderItems);
+router.post('/', auth, /*validate(orderValidation.addOrderItems),*/ orderController.addOrderItems);
+router.get('/:id', auth, /** */ orderController.getOrderItemsById);
 
 export default router;
-
 
 /**
  * @swagger
@@ -17,7 +17,7 @@ export default router;
  *   description: CRUD products
  */
 
- /**
+/**
  * @swagger
  * path:
  *  /order:
@@ -120,3 +120,29 @@ export default router;
  *                code: 401
  *                message: Unauthorized
  */
+
+/**
+ * @swagger
+ * path:
+ *  /order/{id}:
+ *    get:
+ *      summary: Get Order
+ *      description: Get Order By Id
+ *      tags: [Order]
+ *      security:
+ *        - bearerAuth: []
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          required: true
+ *          schema:
+ *            type: string
+ *          description: Order id
+ *      responses:
+ *        "200":
+ *          description: OK
+ *          content:
+ *            application/json:
+ *              schema:
+ *                 $ref: '#/components/schemas/Order'
+ * */

@@ -14,3 +14,7 @@ export const saveShppingAdress = (address) =>({
   address
 })
 
+export const savePaymentMethod = (paymentMethod) =>({
+  type: CONSTANTS.CART_SAVE_PAYMENT_METHOD_REQUEST,
+  paymentMethod
+})

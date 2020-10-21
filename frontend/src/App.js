@@ -10,6 +10,7 @@ import Product from './containers/Product';
 import Profile from './containers/Profile';
 import Cart from './containers/Cart';
 import Shipping from './containers/Shipping';
+import Payment from './containers/Payment';
 
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
       <main className="py-3">
         <Container>
           <Route path="/shipping" component={Shipping} />
+          <Route path="/payment" component={Payment} />
           <Route path="/profile" component={Profile} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />

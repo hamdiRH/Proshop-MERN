@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
 import FormContainer from '../components/FormContainer';
+import CheckoutSteps from '../components/CheckoutSteps';
 import { saveShppingAdress } from '../redux/cart/actions';
 import {
   selectShippingCartAdress,
@@ -36,6 +37,7 @@ const Shipping = (props) => {
         <meta name="description" content="Shipping page" />
       </Helmet>
       <FormContainer>
+          <CheckoutSteps step1 step2/>
         <h1>Shipping</h1>
         <Form onSubmit={submitHandler}>
           <Form.Group controlId="address">
@@ -43,7 +45,7 @@ const Shipping = (props) => {
             <Form.Control
               type="text"
               name="address"
-              placeholder="Enter address"
+              placeholder="Enter address" 
               value={formData.address}
               onChange={handleChange}
             ></Form.Control>

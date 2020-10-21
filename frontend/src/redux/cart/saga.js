@@ -58,8 +58,6 @@ export function* removeFromCart({ id }) {
 
 export function* saveShppingAdress({address}) {
   try {
-    const state = yield select();
-
     yield put({
       type: CONSTANTS.CART_SAVE_ADDRESS_SUCCESS,
       payload: address,
@@ -75,6 +73,24 @@ export function* saveShppingAdress({address}) {
   }
 }
 
+
+export function* savepaymentAdress({paymentMethod}) {
+  try {
+    yield put({
+      type: CONSTANTS.CART_SAVE_PAYMENT_METHOD_SUCCESS,
+      payload: paymentMethod,
+    });
+    localStorage.setItem(
+      'paymentMethod',
+      JSON.stringify(paymentMethod),
+    );
+  } catch (error) {
+    yield put({
+      type: CONSTANTS.CART_SAVE_PAYMENT_METHOD_FAIL,
+    });
+  }
+}
+
 export function* addToCartWatcher() {
   yield takeEvery(CONSTANTS.CART_ADD_ITEM_REQUEST, addToCart);
 }
@@ -84,7 +100,10 @@ export function* removeFromCartWatcher() {
 export function* saveShppingAdressWatcher() {
   yield takeEvery(CONSTANTS.CART_SAVE_ADDRESS_REQUEST, saveShppingAdress);
 }
+export function* savepaymentAdressWatcher() {
+  yield takeEvery(CONSTANTS.CART_SAVE_PAYMENT_METHOD_REQUEST, savepaymentAdress);
+}
 
 export default function* productSaga() {
-  yield all([addToCartWatcher(), removeFromCartWatcher(),saveShppingAdressWatcher()]);
+  yield all([addToCartWatcher(), removeFromCartWatcher(),saveShppingAdressWatcher(),savepaymentAdressWatcher()]);
 }

@@ -1,16 +1,19 @@
 import * as CONSTANTS from './constants';
 import produce from 'immer';
 export const initialState = {
-  loading: { cartItems: false, shippingAddress: false },
+  loading: { cartItems: false, shippingAddress: false, paymentMethod: false },
   data: {
     cartItems: localStorage.getItem('cartItems')
       ? JSON.parse(localStorage.getItem('cartItems'))
       : [],
-      shippingAddress: localStorage.getItem('shippingAddress')
+    shippingAddress: localStorage.getItem('shippingAddress')
       ? JSON.parse(localStorage.getItem('shippingAddress'))
       : {},
+    paymentMethod: localStorage.getItem('paymentMethod')
+      ? JSON.parse(localStorage.getItem('paymentMethod'))
+      : '',
   },
-  error: { cartItems: '', shippingAddress: '' },
+  error: { cartItems: '', shippingAddress: '', paymentMethod: '' },
 };
 
 const reducer = (state = initialState, { type, payload }) =>
@@ -53,6 +56,18 @@ const reducer = (state = initialState, { type, payload }) =>
       case CONSTANTS.CART_SAVE_ADDRESS_FAIL:
         draft.loading.shippingAddress = false;
         break;
+      case CONSTANTS.CART_SAVE_PAYMENT_METHOD_REQUEST:
+        draft.loading.paymentMethod = true;
+        break;
+      case CONSTANTS.CART_SAVE_PAYMENT_METHOD_SUCCESS:
+        draft.loading.paymentMethod = false;
+        draft.data.paymentMethod = payload;
+
+        break;
+      case CONSTANTS.CART_SAVE_PAYMENT_METHOD_FAIL:
+        draft.loading.paymentMethod = false;
+        break;
+
       default:
         return draft;
     }

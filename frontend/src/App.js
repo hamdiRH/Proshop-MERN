@@ -11,6 +11,7 @@ import Profile from './containers/Profile';
 import Cart from './containers/Cart';
 import Shipping from './containers/Shipping';
 import Payment from './containers/Payment';
+import PlaceOrder from './containers/PlaceOrder';
 
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
         <Container>
           <Route path="/shipping" component={Shipping} />
           <Route path="/payment" component={Payment} />
+          <Route path="/Placeorder" component={PlaceOrder} />
           <Route path="/profile" component={Profile} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />

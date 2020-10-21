@@ -36,6 +36,7 @@ const Product = () => {
   const addToCartHandler = () => {
     history.push(`/cart/${params.id}?qty=${qty}`);
   };
+
   return (
     <>
       <Helmet>

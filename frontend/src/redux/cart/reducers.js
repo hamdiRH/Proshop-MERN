@@ -25,7 +25,6 @@ const reducer = (state = initialState, { type, payload }) =>
         break;
       case CONSTANTS.CART_ADD_ITEM_SUCCESS:
         draft.loading.cartItems = false;
-        // draft.data.cartItems = payload;
         const existItem = draft.data.cartItems.find(
           (x) => x.product === payload.product,
         );

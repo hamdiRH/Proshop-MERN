@@ -12,5 +12,8 @@ export const auth = {
 };
 export const users = {
   getDetails: (id) => `/user/${id}`,
-  updateUser:'/user/profile'
+  updateUser: '/user/profile',
+};
+export const order = {
+  createOrder: '/order',
 };

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import _ from 'lodash';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import {
   Button,
   Row,
@@ -22,23 +22,55 @@ import {
   selectCartItemsLoading,
   selectCartItemsError,
 } from '../redux/cart/selectors';
+import {
+  selectOrderData,
+  selectSuccessOrder,
+  selectLoadingOrder,
+  selectErrorOrder,
+} from '../redux/order/selectors';
+import { createOrder } from '../redux/order/actions';
 import Cart from './Cart';
 
 const PlaceOrder = (props) => {
   const shippingAddress = useSelector(selectShippingCartAdress) || {};
   const paymentMethodSelector = useSelector(selectPaymentMethod) || 'Paypal';
-  const  cartItems = useSelector(selectCartItemsData);
-//   Caculate Prices
-const addDecimals = num => ((Math.round(num*100)/100).toFixed(2))
-  const itemsPrice = addDecimals(cartItems.reduce(
-    (acc, item) => acc + item.price * item.qty,
-    0,
-  ));
-  const ShippingPrice = addDecimals(itemsPrice>100 ?0:100)
-  const taxPrice=addDecimals(Number((0.15 * itemsPrice)))
-  const totalPrice=addDecimals(Number(itemsPrice)+Number(ShippingPrice)+Number(taxPrice))
-  
-  const placeOrderHandler = () => {};
+  const cartItems = useSelector(selectCartItemsData);
+  const history = useHistory();
+  const order = useSelector(selectOrderData);
+  const successOrder = useSelector(selectSuccessOrder);
+  const errorOrder = useSelector(selectErrorOrder);
+  const loadingOrder = useSelector(selectLoadingOrder);
+
+  const dispatch = useDispatch();
+  //   Caculate Prices
+  const addDecimals = (num) => (Math.round(num * 100) / 100).toFixed(2);
+  const itemsPrice = addDecimals(
+    cartItems.reduce((acc, item) => acc + item.price * item.qty, 0),
+  );
+  const ShippingPrice = addDecimals(itemsPrice > 100 ? 0 : 100);
+  const taxPrice = addDecimals(Number(0.15 * itemsPrice));
+  const totalPrice = addDecimals(
+    Number(itemsPrice) + Number(ShippingPrice) + Number(taxPrice),
+  );
+  useEffect(() => {
+    if (successOrder) {
+      history.push(`order/${order._id}`);
+    }
+    // eslint-disable-next-line
+  }, [history, successOrder]);
+  const placeOrderHandler = () => {
+    dispatch(
+      createOrder({
+        orderItems: cartItems,
+        shippingAddress: shippingAddress,
+        paymentMethod: paymentMethodSelector,
+        itemsPrice,
+        ShippingPrice,
+        taxPrice,
+        totalPrice,
+      }),
+    );
+  };
   return (
     <>
       <Helmet>
@@ -127,6 +159,11 @@ const addDecimals = num => ((Math.round(num*100)/100).toFixed(2))
                   <Col>${totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
+              {errorOrder && (
+                <ListGroup.Item>
+                  <Message variant="danger">{errorOrder}</Message>
+                </ListGroup.Item>
+              )}
               <ListGroup.Item>
                 <Button
                   type="button"

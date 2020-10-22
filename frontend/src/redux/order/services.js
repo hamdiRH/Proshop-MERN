@@ -14,3 +14,15 @@ export const createOrderService = async (order) => {
     throw error;
   }
 };
+
+export const getOrderService = async (id) => {
+  try {
+    const { data } = await axios.get(
+      `${CONSTANTS.BaseApi}${CONSTANTS.order.getOrder(id)}`,
+      requestHeader(),
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};

@@ -8,9 +8,8 @@ import {
   ListGroup,
   Image,
   Card,
-  ListGroupItem,
 } from 'react-bootstrap';
-import PropTypes from 'prop-types';
+
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
@@ -19,19 +18,15 @@ import {
   selectShippingCartAdress,
   selectPaymentMethod,
   selectCartItemsData,
-  selectCartItemsLoading,
-  selectCartItemsError,
 } from '../redux/cart/selectors';
 import {
   selectOrderData,
   selectSuccessOrder,
-  selectLoadingOrder,
   selectErrorOrder,
 } from '../redux/order/selectors';
 import { createOrder } from '../redux/order/actions';
-import Cart from './Cart';
 
-const PlaceOrder = (props) => {
+const PlaceOrder = () => {
   const shippingAddress = useSelector(selectShippingCartAdress) || {};
   const paymentMethodSelector = useSelector(selectPaymentMethod) || 'Paypal';
   const cartItems = useSelector(selectCartItemsData);
@@ -39,7 +34,6 @@ const PlaceOrder = (props) => {
   const order = useSelector(selectOrderData);
   const successOrder = useSelector(selectSuccessOrder);
   const errorOrder = useSelector(selectErrorOrder);
-  const loadingOrder = useSelector(selectLoadingOrder);
 
   const dispatch = useDispatch();
   //   Caculate Prices
@@ -181,7 +175,5 @@ const PlaceOrder = (props) => {
     </>
   );
 };
-
-PlaceOrder.propTypes = {};
 
 export default PlaceOrder;

@@ -4,7 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { Nav } from 'react-bootstrap';
 
 const CheckoutSteps = ({ step1, step2, step3, step4 }) => {
-    console.log(step1)
+  console.log(step1);
   return (
     <Nav className="justify-content-center mb-4">
       <Nav.Item>
@@ -50,6 +50,18 @@ const CheckoutSteps = ({ step1, step2, step3, step4 }) => {
   );
 };
 
-CheckoutSteps.propTypes = {};
+CheckoutSteps.propTypes = {
+  step1: PropTypes.bool,
+  step2: PropTypes.bool,
+  step3: PropTypes.bool,
+  step4: PropTypes.bool,
+};
+
+CheckoutSteps.defaultProps = {
+  step1: false,
+  step2: false,
+  step3: false,
+  step4: false,
+};
 
 export default CheckoutSteps;

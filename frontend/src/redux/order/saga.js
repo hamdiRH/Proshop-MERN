@@ -20,10 +20,32 @@ export function* createOrder({ order }) {
   }
 }
 
+export function* getorder({ id }) {
+  try {
+    const data = yield call(api.getOrderService, id);
+    yield put({
+      type: CONSTANTS.GET_ORDER_DETAILS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    yield put({
+      type: CONSTANTS.GET_ORDER_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+}
+
 export function* createOrderWatcher() {
   yield takeEvery(CONSTANTS.CREATE_ORDER_REQUEST, createOrder);
 }
 
+export function* getOrderWatcher() {
+  yield takeEvery(CONSTANTS.GET_ORDER_DETAILS_REQUEST, getorder);
+}
+
 export default function* productSaga() {
-  yield all([createOrderWatcher()]);
+  yield all([createOrderWatcher(), getOrderWatcher()]);
 }

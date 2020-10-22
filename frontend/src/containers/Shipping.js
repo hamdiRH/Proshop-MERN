@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import _ from 'lodash';
-import { Link, useLocation, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet';
@@ -10,13 +9,10 @@ import CheckoutSteps from '../components/CheckoutSteps';
 import { saveShppingAdress } from '../redux/cart/actions';
 import {
   selectShippingCartAdress,
-  selectCartItemsLoading,
-  selectCartItemsError,
 } from '../redux/cart/selectors';
-import PropTypes from 'prop-types';
 
-const Shipping = (props) => {
-  const location = useLocation();
+
+const Shipping = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const cart = useSelector(selectShippingCartAdress) || {};
@@ -88,7 +84,5 @@ const Shipping = (props) => {
     </>
   );
 };
-
-Shipping.propTypes = {};
 
 export default Shipping;

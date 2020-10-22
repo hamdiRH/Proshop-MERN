@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-
-import { useLocation, useHistory } from 'react-router-dom';
 import { Row, Col, Button, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet';
@@ -15,9 +13,7 @@ import {
 } from '../redux/user/selectors';
 
 const Profile = () => {
-  const location = useLocation();
   const dispatch = useDispatch();
-  const history = useHistory();
   const [userData, setUserData] = useState({});
   const [message, setMessage] = useState('');
   const user = useSelector(selectUserData);
@@ -40,7 +36,6 @@ const Profile = () => {
     if (userData.password !== userData.confirmPassword)
       setMessage('Passwords do not mach');
     else {
-      // TODO: dispatch update profile
       dispatch(
         updateUserDetails({
           name: userData.name,

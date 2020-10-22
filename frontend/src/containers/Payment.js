@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import _ from 'lodash';
-import { Link, useLocation, useHistory } from 'react-router-dom';
-import { Button, Form, Col, Row } from 'react-bootstrap';
+import {   useHistory } from 'react-router-dom';
+import { Button, Form, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
@@ -11,13 +11,11 @@ import { savePaymentMethod } from '../redux/cart/actions';
 import {
   selectShippingCartAdress,
   selectPaymentMethod,
-  selectCartItemsLoading,
-  selectCartItemsError,
-} from '../redux/cart/selectors';
-import PropTypes from 'prop-types';
 
-const Payment = (props) => {
-  const location = useLocation();
+} from '../redux/cart/selectors';
+
+
+const Payment = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const paymentMethodSelector = useSelector(selectPaymentMethod) || 'Paypal';
@@ -75,7 +73,5 @@ const Payment = (props) => {
     </>
   );
 };
-
-Payment.propTypes = {};
 
 export default Payment;

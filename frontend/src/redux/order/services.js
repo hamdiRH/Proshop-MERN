@@ -26,3 +26,16 @@ export const getOrderService = async (id) => {
     throw error;
   }
 };
+
+export const updateOrderToPaid = async (id, body) => {
+  try {
+    const { data } = await axios.put(
+      `${CONSTANTS.BaseApi}${CONSTANTS.order.updateOrderToPaid(id)}`,
+      body,
+      requestHeader(),
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};

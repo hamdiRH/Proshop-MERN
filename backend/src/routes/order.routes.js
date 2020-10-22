@@ -158,6 +158,26 @@ export default router;
  *      tags: [Order]
  *      security:
  *        - bearerAuth: []
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              required:
+ *                - id
+ *                - status
+ *                - update_time
+ *                - email_address
+ *              properties:
+ *                  id:
+ *                      type: string
+ *                  status:
+ *                      type: string
+ *                  update_time:
+ *                      type: string
+ *                  email_address:
+ *                      type: string
  *      parameters:
  *        - in: path
  *          name: id

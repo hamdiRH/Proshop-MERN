@@ -60,8 +60,13 @@ const Order = () => {
                 {order.shippingAddress &&
                   ` ${order.shippingAddress.address}, ${order.shippingAddress.city} - ${order.shippingAddress.postalCode} ${order.shippingAddress.country}`}
               </p>
-              {order.isDelivered ? <Message variant='success'>Delivered on {order.deliveredAt}</Message>:<Message variant="danger">Not Delivered</Message>}
-
+              {order.isDelivered ? (
+                <Message variant="success">
+                  Delivered on {order.deliveredAt}
+                </Message>
+              ) : (
+                <Message variant="danger">Not Delivered</Message>
+              )}
             </ListGroup.Item>
             <ListGroup.Item>
               <h2>Payment Method</h2>
@@ -69,7 +74,11 @@ const Order = () => {
                 <strong>Method: </strong>
                 {order.paymentMethod}
               </p>
-                {order.isPaid ? <Message variant='success'>Paid on {order.paidAt}</Message>:<Message variant="danger">Not Paid</Message>}
+              {order.isPaid ? (
+                <Message variant="success">Paid on {order.paidAt}</Message>
+              ) : (
+                <Message variant="danger">Not Paid</Message>
+              )}
             </ListGroup.Item>
             <ListGroup.Item>
               <h2>Order Items</h2>
@@ -114,13 +123,13 @@ const Order = () => {
                 <Row>
                   <Col>Items</Col>
                   <Col>
-                    <Col>${order.itemsPrice}</Col>
+                    {/* ${order.itemsPrice} */}
 
-                    {/* {order.orderItems &&
-                      order.orderItems.reduce(
+                    {order.orderItems &&
+                      "$"+order.orderItems.reduce(
                         (acc, item) => acc + item.price,
                         0,
-                      )} */}
+                      )}
                   </Col>
                 </Row>
               </ListGroup.Item>

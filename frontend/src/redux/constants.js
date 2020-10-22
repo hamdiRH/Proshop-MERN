@@ -17,4 +17,5 @@ export const users = {
 export const order = {
   createOrder: '/order',
   getOrder: (id) => `/order/${id}`,
+  updateOrderToPaid: (id) => `/order/${id}/pay`,
 };

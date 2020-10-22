@@ -1,4 +1,5 @@
 import Order from '../models/order.model';
+import moment from 'moment';
 
 export const addOrderItems = async ({ body, user }) => {
   const { orderItems, shippingAddress, paymentMethod, itemsPrice, taxPrice, shippingPrice, totalPrice } = body;
@@ -25,7 +26,22 @@ export const addOrderItems = async ({ body, user }) => {
 };
 
 export const getOrderItemsById = async ({ params }) => {
-  const order = (await Order.findOne({ _id: params.id })).populate('user','name email').execPopulate();
+  const order = (await Order.findOne({ _id: params.id })).populate('user', 'name email').execPopulate();
   if (!order) throw new Error('Order not found');
   return order;
+};
+
+export const updateOrderToPaid = async ({ params, body }) => {
+  const order = await Order.findOne({ _id: params.id });
+  if (!order) throw new Error('Order not found');
+  order.isPaid = true;
+  order.paidAt = moment();
+  order.paymentReslt = {
+    id: body.id,
+    status: body.status,
+    update_time: moment(body.update_time),
+    email_address: body.payer.email_address,
+  };
+  const updatedOrder = await order.save();
+  return updatedOrder;
 };

@@ -13,7 +13,14 @@ export const addOrderItems = asyncHandler(async (req, res) => {
 //@route GET /api/order
 //@access Private
 export const getOrderItemsById = asyncHandler(async (req, res) => {
-  console.log(req.params.id)
   const order = await orderService.getOrderItemsById(req);
+  res.status(201).send(order);
+});
+
+//@des Update order to paid
+//@route PUT /api/order/:id/pay
+//@access Private
+export const updateOrderToPaid = asyncHandler(async (req, res) => {
+  const order = await orderService.updateOrderToPaid(req);
   res.status(201).send(order);
 });

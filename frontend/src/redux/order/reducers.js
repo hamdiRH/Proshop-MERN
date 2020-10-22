@@ -1,9 +1,9 @@
 import * as CONSTANTS from './constants';
 import produce from 'immer';
 export const initialState = {
-  loading: { order: false, orderItems: false },
-  data: { order: {}, success: false, orderItems: [], shippingAddress:{} },
-  error: { order: '', orderItems: '' },
+  loading: { order: false, orderDetails: false },
+  data: { order: {}, success: false, orderDetails:{},orderItems: [], shippingAddress:{} },
+  error: { order: '', orderDetails: '' },
 };
 
 const reducer = (state = initialState, { type, payload }) =>
@@ -23,15 +23,15 @@ const reducer = (state = initialState, { type, payload }) =>
         draft.data.success = false;
         break;
       case CONSTANTS.GET_ORDER_DETAILS_REQUEST:
-        draft.loading.orderItems = true;
+        draft.loading.orderDetails = true;
         break;
       case CONSTANTS.GET_ORDER_DETAILS_SUCCESS:
-        draft.loading.orderItems = false;
-        draft.data.orderItems = payload;
+        draft.loading.orderDetails = false;
+        draft.data.orderDetails = payload;
         break;
       case CONSTANTS.GET_ORDER_DETAILS_FAIL:
-        draft.loading.orderItems = false;
-        draft.error.orderItems = payload;
+        draft.loading.orderDetails = false;
+        draft.error.orderDetails = payload;
         break;
       default:
         return draft;

@@ -1,93 +1,83 @@
 import React, { useEffect } from 'react';
 import _ from 'lodash';
-import { Link, useHistory } from 'react-router-dom';
-import {
-  Button,
-  Row,
-  Col,
-  ListGroup,
-  Image,
-  Card,
-  ListGroupItem,
-} from 'react-bootstrap';
-import PropTypes from 'prop-types';
+import { Link, useParams } from 'react-router-dom';
+import { Row, Col, ListGroup, Image, Card } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 
 import {
-  selectOrderData,
-  selectSuccessOrder,
+  selectOrderDetailsData,
   selectLoadingOrder,
   selectErrorOrder,
 } from '../redux/order/selectors';
 import { getOrderDetails } from '../redux/order/actions';
-import Cart from './Cart';
 
-const Order = (props) => {
-  const shippingAddress = useSelector(selectShippingCartAdress) || {};
-  const paymentMethodSelector = useSelector(selectPaymentMethod) || 'Paypal';
-  const cartItems = useSelector(selectCartItemsData);
-  const history = useHistory();
-  const order = useSelector(selectOrderData);
-  const successOrder = useSelector(selectSuccessOrder);
+const Order = () => {
+  const params = useParams();
+  const orderId = params.id;
+  const { order } = useSelector(selectOrderDetailsData);
   const errorOrder = useSelector(selectErrorOrder);
   const loadingOrder = useSelector(selectLoadingOrder);
 
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
-    if (successOrder) {
-      history.push(`order/${order._id}`);
-    }
-    // eslint-disable-next-line
-  }, [history, successOrder]);
-  const placeOrderHandler = () => {
-    dispatch(
-      createOrder({
-        orderItems: cartItems,
-        shippingAddress: shippingAddress,
-        paymentMethod: paymentMethodSelector,
-        itemsPrice,
-        ShippingPrice,
-        taxPrice,
-        totalPrice,
-      }),
-    );
-  };
-  return (
+    dispatch(getOrderDetails(orderId));
+  }, [dispatch, orderId]);
+
+  return loadingOrder.orderItems ? (
+    <Loader />
+  ) : errorOrder.orderItems ? (
+    <Message variant="danger">{errorOrder.orderItems}</Message>
+  ) : (
     <>
       <Helmet>
         <title>Proshop</title>
-        <meta name="description" content="Place Order page" />
+        <meta name="description" content="Order page" />
       </Helmet>
-      <CheckoutSteps step1 step2 step3 step4 />
+      <h1>Order {order._id}</h1>
       <Row>
         <Col md={8}>
           <ListGroup variant="flush">
             <ListGroup.Item>
               <h2>Shipping</h2>
+              {order.user && (
+                <>
+                  <p>
+                    <strong>Name:</strong> {order.user.name}
+                  </p>
+                  <p>
+                    <a href={`mailto:${order.user.email}`}>
+                      {order.user.email}
+                    </a>
+                  </p>
+                </>
+              )}
               <p>
                 <strong>Adress:</strong>
-                {shippingAddress.address}, {shippingAddress.city} -{' '}
-                {shippingAddress.postalCode} {shippingAddress.country}
+                {order.shippingAddress &&
+                  ` ${order.shippingAddress.address}, ${order.shippingAddress.city} - ${order.shippingAddress.postalCode} ${order.shippingAddress.country}`}
               </p>
+              {order.isDelivered ? <Message variant='success'>Delivered on {order.deliveredAt}</Message>:<Message variant="danger">Not Delivered</Message>}
+
             </ListGroup.Item>
             <ListGroup.Item>
               <h2>Payment Method</h2>
               <p>
                 <strong>Method: </strong>
-                {paymentMethodSelector}
+                {order.paymentMethod}
               </p>
+                {order.isPaid ? <Message variant='success'>Paid on {order.paidAt}</Message>:<Message variant="danger">Not Paid</Message>}
             </ListGroup.Item>
             <ListGroup.Item>
               <h2>Order Items</h2>
-              {_.isEmpty(cartItems) ? (
-                <Message>Your cart is empty</Message>
+              {_.isEmpty(order.orderItems) ? (
+                <Message>Order is empty</Message>
               ) : (
                 <ListGroup>
-                  {cartItems.map((item) => (
+                  {order.orderItems.map((item) => (
                     <ListGroup.Item key={item.product}>
                       <Row>
                         <Col md={2}>
@@ -123,41 +113,34 @@ const Order = (props) => {
               <ListGroup.Item>
                 <Row>
                   <Col>Items</Col>
-                  <Col>${itemsPrice}</Col>
+                  <Col>
+                    <Col>${order.itemsPrice}</Col>
+
+                    {/* {order.orderItems &&
+                      order.orderItems.reduce(
+                        (acc, item) => acc + item.price,
+                        0,
+                      )} */}
+                  </Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Shipping</Col>
-                  <Col>${ShippingPrice}</Col>
+                  <Col>${order.shippingPrice}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Tax</Col>
-                  <Col>${taxPrice}</Col>
+                  <Col>${order.taxPrice}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Total</Col>
-                  <Col>${totalPrice}</Col>
+                  <Col>${order.totalPrice}</Col>
                 </Row>
-              </ListGroup.Item>
-              {errorOrder && (
-                <ListGroup.Item>
-                  <Message variant="danger">{errorOrder}</Message>
-                </ListGroup.Item>
-              )}
-              <ListGroup.Item>
-                <Button
-                  type="button"
-                  className="btn-block"
-                  disabled={_.isEmpty(cartItems)}
-                  onClick={placeOrderHandler}
-                >
-                  Place Order
-                </Button>
               </ListGroup.Item>
             </ListGroup>
           </Card>
@@ -166,7 +149,5 @@ const Order = (props) => {
     </>
   );
 };
-
-Order.propTypes = {};
 
 export default Order;

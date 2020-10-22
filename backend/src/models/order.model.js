@@ -1,12 +1,12 @@
-import mongoose from 'mongoose'
-import mongooseAutopopulate from 'mongoose-autopopulate'
+import mongoose from 'mongoose';
+import mongooseAutopopulate from 'mongoose-autopopulate';
 const orderSchema = mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: 'User',
-      autopopulate: true
+      autopopulate: true,
     },
     orderItems: [
       {
@@ -36,6 +36,10 @@ const orderSchema = mongoose.Schema(
       status: { type: String },
       update_time: { type: String },
       email_address: { type: String },
+    },
+    itemsPrice: {
+      type: Number,
+      default: 0.0,
     },
     taxPrice: {
       type: Number,
@@ -72,8 +76,8 @@ const orderSchema = mongoose.Schema(
   {
     timestamps: true,
   }
-)
+);
 
-const Order = mongoose.model('Order', orderSchema)
-orderSchema.plugin(require('mongoose-autopopulate'))
-export default Order
+const Order = mongoose.model('Order', orderSchema);
+orderSchema.plugin(require('mongoose-autopopulate'));
+export default Order;

@@ -76,4 +76,15 @@ export const deleteUserById = asyncHandler(async (req, res) => {
   }
 });
 
+//@des fetch one user By Id
+//@route GET /api/user/id
+//@access Private /Admin
+export const getUserById = asyncHandler(async (req, res) => {
+  const user = await userService.getUserById(req);
+  if (user) res.status(200).send(user);
+  else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+});
 

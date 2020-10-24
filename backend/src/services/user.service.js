@@ -74,3 +74,9 @@ export const deleteUserById = async (req) => {
   if (!user) throw new Error('no user found');
   return user;
 };
+
+export const getUserById = async (req) => {
+  const user = await User.findOne({ _id: req.params.id });
+  if (!user) throw new Error('no user found');
+  return user;
+};

@@ -14,7 +14,9 @@ router
   .put(auth, validate(userValidation.updateProfile), userController.updateProfile);
 
 router.get('/', auth, admin, userController.getAllUsers);
+router.get('/:id', auth, admin, userController.getUserById);
 router.delete('/:id', auth, admin, userController.deleteUserById);
+
 export default router;
 
 /**

@@ -27,3 +27,27 @@ export const updateUserService = async (user) => {
   }
 };
 
+export const getUsersList = async () => {
+  try {
+    const { data } = await axios.get(
+      `${CONSTANTS.BaseApi}${CONSTANTS.users.getUsers}`,
+      requestHeader(),
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteUser = async (id) => {
+  try {
+    const { data } = await axios.delete(
+      `${CONSTANTS.BaseApi}${CONSTANTS.users.deleteUser(id)}`,
+      requestHeader(),
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+

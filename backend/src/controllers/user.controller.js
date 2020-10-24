@@ -51,3 +51,29 @@ export const updateProfile = asyncHandler(async (req, res) => {
     throw new Error('User not found');
   }
 });
+
+//@des Get All Users
+//@route GET /api/user
+//@access Private /Admin
+export const getAllUsers = asyncHandler(async (req, res) => {
+  const users = await userService.getAllUsers(req);
+  if (users) res.status(200).send(users);
+  else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+});
+
+//@des Delete one user By Id
+//@route DELETE /api/user
+//@access Private /Admin
+export const deleteUserById = asyncHandler(async (req, res) => {
+  const user = await userService.deleteUserById(req);
+  if (user) res.status(200).send(user);
+  else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+});
+
+

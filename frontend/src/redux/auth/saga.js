@@ -5,7 +5,6 @@ import * as CONSTANTS from './constants';
 export function* login({ payload }) {
   try {
     const data = yield call(api.loginService, payload);
-
     yield put({
       type: CONSTANTS.USER_LOGIN_SUCCESS,
       payload: data,
@@ -49,8 +48,10 @@ export function* logout() {
     yield put({
       type: CONSTANTS.USER_LOGOUT_SUCCESS,
     });
-    localStorage.removeItem('userInfo');
-    localStorage.removeItem('token');
+    yield put({
+      type: 'RESET_ORDER'
+    });
+    localStorage.clear();
   } catch (error) {
     yield put({
       type: CONSTANTS.USER_LOGOUT_FAIL,

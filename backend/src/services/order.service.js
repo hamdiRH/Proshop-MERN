@@ -45,3 +45,11 @@ export const updateOrderToPaid = async ({ params, body }) => {
   const updatedOrder = await order.save();
   return updatedOrder;
 };
+
+export const getMyOrders = async ({ user }) => {
+  console.log('sdfg',user._id)
+  const orders = await Order.find({ user: user._id });
+  console.log(orders)
+  if (!orders) throw new Error('Orders not found');
+  return orders;
+};

@@ -5,13 +5,14 @@ import { auth } from '../middleware/auth';
 
 const router = express.Router();
 
-router.post('/', auth, /*validate(orderValidation.addOrderItems),*/ orderController.addOrderItems);
+router.get('/myorders', auth, /** */ orderController.getMyOrders)
 router.get('/:id', auth, /** */ orderController.getOrderItemsById);
 router.put('/:id/pay', auth, /** */ orderController.updateOrderToPaid);
+router.post('/', auth, /*validate(orderValidation.addOrderItems),*/ orderController.addOrderItems);
 
 export default router;
 
-/**
+/** 
  * @swagger
  * tags:
  *   name: Order
@@ -185,6 +186,26 @@ export default router;
  *          schema:
  *            type: string
  *          description: Order id
+ *      responses:
+ *        "200":
+ *          description: OK
+ *          content:
+ *            application/json:
+ *              schema:
+ *                 $ref: '#/components/schemas/Order'
+ * */
+
+
+ /**
+ * @swagger
+ * path:
+ *  /order/myorders:
+ *    get:
+ *      summary: Get Orders
+ *      description: Get My Orders
+ *      tags: [Order]
+ *      security:
+ *        - bearerAuth: []
  *      responses:
  *        "200":
  *          description: OK

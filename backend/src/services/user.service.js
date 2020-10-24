@@ -1,4 +1,5 @@
 import User from '../models/user.model';
+import _ from 'lodash';
 import generateToken from '../helpers/generateToken';
 
 export const regiserUser = async ({ email, password, name }, res) => {
@@ -60,4 +61,16 @@ export const updateProfile = async ({ user, body }) => {
       token: generateToken(user._id),
     };
   } else return null;
+};
+
+export const getAllUsers = async (req) => {
+  const users = await User.find();
+  if (_.isEmpty(users)) throw new Error('no user found');
+  return users;
+};
+
+export const deleteUserById = async (req) => {
+  const user = await User.deleteOne({ _id: req.params.id });
+  if (!user) throw new Error('no user found');
+  return user;
 };

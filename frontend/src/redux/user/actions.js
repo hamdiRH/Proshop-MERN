@@ -15,3 +15,12 @@ export const resetUserDetails = (id) => ({
   type: CONSTANTS.USER_RESET_REQUEST,
   id,
 });
+
+export const listUsers = () => ({
+  type: CONSTANTS.GET_USERS_LIST_REQUEST
+});
+
+export const deleteUser = (id) => ({
+  type: CONSTANTS.DELETE_USER_REQUEST,
+  id
+});

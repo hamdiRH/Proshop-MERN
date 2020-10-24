@@ -66,7 +66,6 @@ const reducer = (state = initialState, { type, payload }) =>
       case CONSTANTS.CART_SAVE_PAYMENT_METHOD_FAIL:
         draft.loading.paymentMethod = false;
         break;
-
       default:
         return draft;
     }

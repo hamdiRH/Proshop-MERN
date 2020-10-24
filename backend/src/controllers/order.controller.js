@@ -14,7 +14,7 @@ export const addOrderItems = asyncHandler(async (req, res) => {
 //@access Private
 export const getOrderItemsById = asyncHandler(async (req, res) => {
   const order = await orderService.getOrderItemsById(req);
-  res.status(201).send(order);
+  res.status(200).send(order);
 });
 
 //@des Update order to paid
@@ -22,5 +22,14 @@ export const getOrderItemsById = asyncHandler(async (req, res) => {
 //@access Private
 export const updateOrderToPaid = asyncHandler(async (req, res) => {
   const order = await orderService.updateOrderToPaid(req);
-  res.status(201).send(order);
+  res.status(200).send(order);
+});
+
+//@des Get Logged in user orders
+//@route GET /api/order/myorders
+//@access Private
+export const getMyOrders = asyncHandler(async (req, res) => {
+  console.log("a3333")
+  const orders = await orderService.getMyOrders(req);
+  res.status(200).send(orders);
 });

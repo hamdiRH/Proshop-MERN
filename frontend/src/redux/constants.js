@@ -13,9 +13,15 @@ export const auth = {
 export const users = {
   getDetails: (id) => `/user/${id}`,
   updateUser: '/user/profile',
+  getUsers: '/user',
+  deleteUser: (id) => `/user/${id}`,
 };
 export const order = {
   createOrder: '/order',
   getOrder: (id) => `/order/${id}`,
   updateOrderToPaid: (id) => `/order/${id}/pay`,
+  myOrders: '/order/myorders',
+};
+export const config = {
+  paypalClientId: '/config/paypal',
 };

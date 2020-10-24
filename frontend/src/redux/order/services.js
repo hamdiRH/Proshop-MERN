@@ -39,3 +39,27 @@ export const updateOrderToPaid = async (id, body) => {
     throw error;
   }
 };
+
+export const getConfig = async () => {
+  try {
+    const { data } = await axios.get(
+      `${CONSTANTS.BaseApi}${CONSTANTS.config.paypalClientId}`,
+      requestHeader(),
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getMyOrders = async () => {
+  try {
+    const { data } = await axios.get(
+      `${CONSTANTS.BaseApi}${CONSTANTS.order.myOrders}`,
+      requestHeader(),
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};

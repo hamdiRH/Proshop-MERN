@@ -1,7 +1,13 @@
 import * as CONSTANTS from './constants';
 import produce from 'immer';
 export const initialState = {
-  loading: { order: false, orderDetails: false, orderPay: false },
+  loading: {
+    order: false,
+    orderDetails: false,
+    orderPay: false,
+    ClientID: false,
+    myOrders: false,
+  },
   data: {
     order: {},
     success: false,
@@ -9,8 +15,16 @@ export const initialState = {
     orderItems: [],
     shippingAddress: {},
     orderPaySuccess: false,
+    ClientID: '',
+    myOrders: [],
   },
-  error: { order: '', orderDetails: '', orderPay: '' },
+  error: {
+    order: '',
+    orderDetails: '',
+    orderPay: '',
+    ClientID: '',
+    myOrders: '',
+  },
 };
 
 const reducer = (state = initialState, { type, payload }) =>
@@ -29,6 +43,7 @@ const reducer = (state = initialState, { type, payload }) =>
         draft.loading.order = false;
         draft.data.success = false;
         break;
+
       case CONSTANTS.GET_ORDER_DETAILS_REQUEST:
         draft.loading.orderDetails = true;
         break;
@@ -40,15 +55,14 @@ const reducer = (state = initialState, { type, payload }) =>
         draft.loading.orderDetails = false;
         draft.error.orderDetails = payload;
         break;
+
       case CONSTANTS.ORDER_PAY_REQUEST:
         draft.loading.orderPay = true;
         break;
-
       case CONSTANTS.ORDER_PAY_SUCCESS:
         draft.loading.orderPay = false;
         draft.data.orderPaySuccess = true;
         break;
-
       case CONSTANTS.ORDER_PAY_FAIL:
         draft.loading.orderPay = false;
         draft.data.orderPaySuccess = false;
@@ -58,6 +72,59 @@ const reducer = (state = initialState, { type, payload }) =>
         draft.loading.orderPay = false;
         draft.data.orderPaySuccess = false;
         draft.error.orderPay = '';
+        break;
+
+      case CONSTANTS.GET_CONFIG_REQUEST:
+        draft.loading.ClientID = true;
+        break;
+      case CONSTANTS.GET_CONFIG_SUCCESS:
+        draft.loading.ClientID = false;
+        draft.data.ClientID = payload;
+        break;
+      case CONSTANTS.GET_CONFIG_FAIL:
+        draft.loading.ClientID = false;
+        draft.error.ClientID = payload;
+        break;
+
+      case CONSTANTS.GET_MY_ORDERS_REQUEST:
+        draft.loading.myOrders = true;
+        break;
+      case CONSTANTS.GET_MY_ORDERS_SUCCESS:
+        draft.loading.myOrders = true;
+        draft.data.myOrders = payload;
+        break;
+      case CONSTANTS.GET_MY_ORDERS_FAIL:
+        draft.loading.myOrders = true;
+        draft.error.myOrders = payload;
+        break;
+
+      case CONSTANTS.RESET_ORDER:
+        draft = {
+          loading: {
+            order: false,
+            orderDetails: false,
+            orderPay: false,
+            ClientID: false,
+            myOrders: false,
+          },
+          data: {
+            order: {},
+            success: false,
+            orderDetails: {},
+            orderItems: [],
+            shippingAddress: {},
+            orderPaySuccess: false,
+            ClientID: '',
+            myOrders: [],
+          },
+          error: {
+            order: '',
+            orderDetails: '',
+            orderPay: '',
+            ClientID: '',
+            myOrders: '',
+          },
+        };
         break;
       default:
         return draft;

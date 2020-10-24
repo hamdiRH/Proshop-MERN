@@ -1,9 +1,19 @@
 import * as CONSTANTS from './constants';
 import produce from 'immer';
 export const initialState = {
-  loading: { user: false, userInfo: false },
-  data: { user: {}, userInfo: {} },
-  error: { user: '', userInfo: '' },
+  loading: {
+    user: false,
+    userInfo: false,
+    usersList: false,
+    deleteUser: false,
+  },
+  data: {
+    user: {},
+    userInfo: {},
+    usersList: [],
+    deleteUser: { success: false },
+  },
+  error: { user: '', userInfo: '', usersList: '', deleteUser: '' },
 };
 
 const reducer = (state = initialState, { type, payload }) =>
@@ -33,6 +43,32 @@ const reducer = (state = initialState, { type, payload }) =>
         draft.error.user = payload;
         break;
 
+      case CONSTANTS.GET_USERS_LIST_REQUEST:
+        draft.loading.usersList = true;
+        break;
+      case CONSTANTS.GET_USERS_LIST_SUCCESS:
+        draft.loading.usersList = false;
+        draft.data.usersList = payload;
+        break;
+
+      case CONSTANTS.GET_USERS_LIST_FAIL:
+        draft.loading.usersList = false;
+        draft.error.usersList = payload;
+        break;
+
+      case CONSTANTS.DELETE_USER_REQUEST:
+        draft.loading.deleteUser = true;
+        draft.data.deleteUser = { success: false };
+        break;
+      case CONSTANTS.DELETE_USER_SUCCESS:
+        draft.loading.deleteUser = false;
+        draft.data.deleteUser = { data: payload, success: true };
+        break;
+      case CONSTANTS.DELETE_USER_FAIL:
+        draft.loading.deleteUser = false;
+        draft.data.deleteUser = { success: false };
+        draft.error.deleteUser = payload;
+        break;
       default:
         return draft;
     }

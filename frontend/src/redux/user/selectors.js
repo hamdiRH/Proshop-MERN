@@ -15,6 +15,16 @@ const selectUpdatedUserData = createSelector(
   (substate) => substate.data.userInfo,
 );
 
+const selectUsersList = createSelector(
+  selectUser,
+  (substate) => substate.data.usersList,
+);
+
+const selectDeleteUser = createSelector(
+  selectUser,
+  (substate) => substate.data.deleteUser,
+);
+
 const selectUserLoading = createSelector(
   selectUser,
   (substate) => substate.loading,
@@ -30,6 +40,8 @@ export {
   selectUpdatedUserData,
   selectUserDetails,
   selectUserData,
+  selectDeleteUser,
   selectUserLoading,
   selectUserError,
+  selectUsersList
 };

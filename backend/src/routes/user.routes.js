@@ -2,7 +2,7 @@ import express from 'express';
 import * as userController from '../controllers/user.controller';
 import * as userValidation from '../validations/user.validation';
 import validate from '../middleware/validate';
-import { auth } from '../middleware/auth';
+import { auth, admin } from '../middleware/auth';
 
 const router = express.Router();
 
@@ -13,6 +13,8 @@ router
   .get(auth, userController.getUserProfile)
   .put(auth, validate(userValidation.updateProfile), userController.updateProfile);
 
+router.get('/', auth, admin, userController.getAllUsers);
+router.delete('/:id', auth, admin, userController.deleteUserById);
 export default router;
 
 /**
@@ -187,3 +189,49 @@ export default router;
  *                code: 401
  *                message: Unauthorized or Invalid data
  */
+
+
+ /**
+ * @swagger
+ * path:
+ *  /user:
+ *    get:
+ *      summary: Get All user
+ *      description: get All user
+ *      tags: [User]
+ *      security:
+ *        - bearerAuth: []
+ *      responses:
+ *        "200":
+ *          description: OK
+ *          content:
+ *            application/json:
+ *              schema:
+ *                 $ref: '#/components/schemas/User'
+ * */
+
+  /**
+ * @swagger
+ * path:
+ *  /user/{id}:
+ *    delete:
+ *      summary: delete user By Id
+ *      description: delete user By Id
+ *      tags: [User]
+ *      security:
+ *        - bearerAuth: []
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          required: true
+ *          schema:
+ *            type: string
+ *          description: user id
+ *      responses:
+ *        "200":
+ *          description: OK
+ *          content:
+ *            application/json:
+ *              schema:
+ *                 $ref: '#/components/schemas/User'
+ * */

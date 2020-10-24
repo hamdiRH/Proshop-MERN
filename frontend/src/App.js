@@ -13,6 +13,7 @@ import Shipping from './containers/Shipping';
 import Payment from './containers/Payment';
 import PlaceOrder from './containers/PlaceOrder';
 import Order from './containers/Order';
+import UserList from './containers/UserList';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
       <main className="py-3">
         <Container>
           <Route path="/shipping" component={Shipping} />
+          <Route path="/admin/userlist" component={UserList} />
           <Route path="/Order/:id" component={Order} />
           <Route path="/payment" component={Payment} />
           <Route path="/Placeorder" component={PlaceOrder} />

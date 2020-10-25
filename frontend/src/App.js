@@ -15,6 +15,8 @@ import PlaceOrder from './containers/PlaceOrder';
 import Order from './containers/Order';
 import UserList from './containers/UserList';
 import userEdit from './containers/userEdit';
+import ProductList from './containers/ProductList';
+
 
 const App = () => {
   return (
@@ -25,6 +27,7 @@ const App = () => {
           <Route path="/shipping" component={Shipping} />
           <Route path="/admin/userlist" component={UserList} />
           <Route path="/admin/user/:id" component={userEdit} />
+          <Route path="/admin/productlist" component={ProductList} />
           <Route path="/Order/:id" component={Order} />
           <Route path="/payment" component={Payment} />
           <Route path="/Placeorder" component={PlaceOrder} />

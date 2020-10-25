@@ -1,9 +1,19 @@
 import * as CONSTANTS from './constants';
 import produce from 'immer';
 export const initialState = {
-  loading: { products: false, product: false },
-  data: { products: [], product: { reviews: [] } },
-  error: { products: '', product: '' },
+  loading: {
+    products: false,
+    product: false,
+    deleteProduct: false,
+    updateProduct: false,
+  },
+  data: {
+    products: [],
+    product: { reviews: [] },
+    deleteProduct: false,
+    updateProduct: {},
+  },
+  error: { products: '', product: '', deleteProduct: '', updateProduct: '' },
 };
 
 const reducer = (state = initialState, { type, payload }) =>
@@ -20,6 +30,7 @@ const reducer = (state = initialState, { type, payload }) =>
         draft.loading.products = false;
         draft.error.products = payload;
         break;
+        
       case CONSTANTS.PRODUCT_DETAILS_REQUEST:
         draft.loading.product = true;
         break;
@@ -31,6 +42,31 @@ const reducer = (state = initialState, { type, payload }) =>
         draft.loading.product = false;
         draft.error.product = payload;
         break;
+
+      case CONSTANTS.DELETE_PRODUCT_REQUEST:
+        draft.loading.deleteProduct = true;
+        break;
+      case CONSTANTS.DELETE_PRODUCT_SUCCESS:
+        draft.loading.deleteProduct = false;
+        draft.data.deleteProduct = true;
+        break;
+      case CONSTANTS.DELETE_PRODUCT_FAIL:
+        draft.loading.deleteProduct = false;
+        draft.error.deleteProduct = payload;
+        break;
+
+      case CONSTANTS.UPDATE_PRODUCT_REQUEST:
+        draft.loading.updateProduct = true;
+        break;
+      case CONSTANTS.UPDATE_PRODUCT_SUCCESS:
+        draft.loading.updateProduct = false;
+        draft.data.updateProduct = payload;
+        break;
+      case CONSTANTS.UPDATE_PRODUCT_FAIL:
+        draft.loading.updateProduct = false;
+        draft.error.updateProduct = payload;
+        break;
+
       default:
         return draft;
     }

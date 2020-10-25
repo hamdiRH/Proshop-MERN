@@ -1,12 +1,16 @@
 import express from 'express';
 import * as productController from '../controllers/product.controller';
 import * as productValidation from '../validations/product.validation';
+import { auth, admin } from '../middleware/auth';
 import validate from '../middleware/validate';
 const router = express.Router();
 
-
 router.get('/', productController.getProducts);
-router.get('/:id',validate(productValidation.getById), productController.getProductById);
+router
+  .route(':/id')
+  .get(validate(productValidation.getById), productController.getProductById)
+  .put(auth, admin, productController.updateProduct)
+  .delete(auth, admin, productController.deleteProduct);
 
 export default router;
 
@@ -57,3 +61,37 @@ export default router;
  *              schema:
  *                 $ref: '#/components/schemas/Product'
  */
+
+ /**
+ * @swagger
+ * path:
+ *  /product/{id}:
+ *    put:
+ *      summary: update product
+ *      description: Update product
+ *      tags: [Products]
+ *      responses:
+ *        "200":
+ *          description: OK
+ *          content:
+ *            application/json:
+ *              schema:
+ *                 $ref: '#/components/schemas/Product'
+ * */
+
+  /**
+ * @swagger
+ * path:
+ *  /product/{id}:
+ *    delete:
+ *      summary: delete product
+ *      description: delete product
+ *      tags: [Products]
+ *      responses:
+ *        "200":
+ *          description: OK
+ *          content:
+ *            application/json:
+ *              schema:
+ *                 $ref: '#/components/schemas/Product'
+ * */

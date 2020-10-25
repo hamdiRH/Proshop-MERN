@@ -10,3 +10,15 @@ export const getById = async (id) => {
   if (!product) throw new Error('Product not found');
   return product;
 };
+
+export const updateProduct = async ({ params, body }) => {
+  const product = await Product.findOneAndUpdate({ _id: params.id }, { $set: { ...body } });
+  if (!product) throw new Error('Product not found');
+  return product;
+};
+
+export const deleteProduct = async ({params}) => {
+  const product = await Product.findByIdAndRemove(params.id);
+  if (!product) throw new Error('Product not found');
+  return product;
+};

@@ -58,9 +58,9 @@ export function* deleteProduct({ id }) {
   }
 }
 
-export function* updateProduct({ id,product }) {
+export function* updateProduct({ id, product }) {
   try {
-    const data = yield call(api.updateProduct, id,product);
+    const data = yield call(api.updateProduct, id, product);
 
     yield put({
       type: CONSTANTS.UPDATE_PRODUCT_SUCCESS,
@@ -69,6 +69,25 @@ export function* updateProduct({ id,product }) {
   } catch (error) {
     yield put({
       type: CONSTANTS.UPDATE_PRODUCT_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+}
+
+export function* createNewProduct({ product }) {
+  try {
+    const data = yield call(api.createProduct, product);
+
+    yield put({
+      type: CONSTANTS.CREATE_PRODUCT_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    yield put({
+      type: CONSTANTS.CREATE_PRODUCT_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -89,11 +108,15 @@ export function* deleteProductWatcher() {
 export function* updateProductWatcher() {
   yield takeEvery(CONSTANTS.UPDATE_PRODUCT_REQUEST, updateProduct);
 }
+export function* createNewProductWatcher() {
+  yield takeEvery(CONSTANTS.CREATE_PRODUCT_REQUEST, createNewProduct);
+}
 export default function* productSaga() {
   yield all([
     fetchProductsListWatcher(),
     listProductDetailsWatcher(),
     deleteProductWatcher(),
     updateProductWatcher(),
+    createNewProductWatcher(),
   ]);
 }

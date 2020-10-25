@@ -19,3 +19,8 @@ export const updateProduct = (id,product) => ({
   id,
   product
 });
+
+export const createProduct = (product) => ({
+  type: CONSTANTS.CREATE_PRODUCT_REQUEST,
+  product
+});

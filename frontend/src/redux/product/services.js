@@ -48,3 +48,16 @@ export const deleteProduct = async (id) => {
     throw error;
   }
 };
+
+export const createProduct = async (product) => {
+  try {
+    const { data } = await axios.post(
+      `${CONSTANTS.BaseApi}${CONSTANTS.products.create}`,
+      product,
+      requestHeader(),
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};

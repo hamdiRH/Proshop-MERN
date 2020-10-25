@@ -30,7 +30,7 @@ const reducer = (state = initialState, { type, payload }) =>
         draft.loading.products = false;
         draft.error.products = payload;
         break;
-        
+
       case CONSTANTS.PRODUCT_DETAILS_REQUEST:
         draft.loading.product = true;
         break;
@@ -67,6 +67,18 @@ const reducer = (state = initialState, { type, payload }) =>
         draft.error.updateProduct = payload;
         break;
 
+      case CONSTANTS.CREATE_PRODUCT_REQUEST:
+        draft.loading.newProduct = true;
+        break;
+      case CONSTANTS.CREATE_PRODUCT_SUCCESS:
+        draft.loading.newProduct = false;
+        draft.data.newProduct = payload;
+        break;
+      case CONSTANTS.CREATE_PRODUCT_FAIL:
+        draft.loading.newProduct = false;
+        draft.error.newProduct = payload;
+        break;
+        
       default:
         return draft;
     }

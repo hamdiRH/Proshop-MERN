@@ -40,3 +40,15 @@ export const deleteProduct = asyncHandler(async (req, res) => {
     throw new Error('Product not found');
   }
 });
+
+//@des delete product By Id
+//@route DELETE /api/product/id
+//@access Private /Admin
+export const createProduct = asyncHandler(async (req, res) => {
+  const product = await productService.createProduct(req);
+  if (product) res.status(200).send(product);
+  else {
+    res.status(404);
+    throw new Error('Product not found');
+  }
+});

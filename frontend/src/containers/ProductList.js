@@ -7,7 +7,7 @@ import Loader from '../components/Loader'
 import Paginate from '../components/Paginate'
 import {
   listProducts,
-  // deleteProduct,
+  deleteProduct,
   // createProduct,
 } from '../redux/product/actions'
 
@@ -72,7 +72,7 @@ const ProductListScreen = ({ history, match }) => {
 
   const deleteHandler = (id) => {
     if (window.confirm('Are you sure')) {
-      // dispatch(deleteProduct(id))
+      dispatch(deleteProduct(id))
     }
   }
 

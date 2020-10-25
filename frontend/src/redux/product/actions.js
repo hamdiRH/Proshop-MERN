@@ -9,7 +9,7 @@ export const listProductDetails = (id) => ({
   id,
 });
 
-export const deleteproduct = (id) => ({
+export const deleteProduct = (id) => ({
   type: CONSTANTS.DELETE_PRODUCT_REQUEST,
   id,
 });

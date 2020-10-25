@@ -22,3 +22,9 @@ export const deleteProduct = async ({params}) => {
   if (!product) throw new Error('Product not found');
   return product;
 };
+
+export const createProduct = async ({body}) => {
+  const product = await Product.create(body);
+  if (!product) throw new Error('Product not created');
+  return product;
+};

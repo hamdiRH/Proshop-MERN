@@ -6,8 +6,9 @@ import validate from '../middleware/validate';
 const router = express.Router();
 
 router.get('/', productController.getProducts);
+router.post('/', auth, admin, productController.createProduct);
 router
-  .route(':/id')
+  .route('/:id')
   .get(validate(productValidation.getById), productController.getProductById)
   .put(auth, admin, productController.updateProduct)
   .delete(auth, admin, productController.deleteProduct);
@@ -62,7 +63,7 @@ export default router;
  *                 $ref: '#/components/schemas/Product'
  */
 
- /**
+/**
  * @swagger
  * path:
  *  /product/{id}:
@@ -79,7 +80,7 @@ export default router;
  *                 $ref: '#/components/schemas/Product'
  * */
 
-  /**
+/**
  * @swagger
  * path:
  *  /product/{id}:

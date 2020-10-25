@@ -51,3 +51,28 @@ export const deleteUser = async (id) => {
   }
 };
 
+
+export const AdminUpdateUserDetails = async (id,user) => {
+  try {
+    const { data } = await axios.put(
+      `${CONSTANTS.BaseApi}${CONSTANTS.users.getDetails(id)}`,
+      user,
+      requestHeader(),
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const AdminGetUserDetails = async (id) => {
+  try {
+    const { data } = await axios.get(
+      `${CONSTANTS.BaseApi}${CONSTANTS.users.getDetails(id)}`,
+      requestHeader(),
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};

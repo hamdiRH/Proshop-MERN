@@ -80,3 +80,20 @@ export const getUserById = async (req) => {
   if (!user) throw new Error('no user found');
   return user;
 };
+
+export const updateUserById = async ({ params, body }) => {
+  const userProfile = await User.findById(params.id);
+  if (userProfile) {
+    userProfile.name = body.name || userProfile.name;
+    userProfile.email = body.email || userProfile.email;
+    userProfile.isAdmin = body.isAdmin;
+
+    const updatedUserProfile = userProfile.save();
+    return {
+      _id: updatedUserProfile._id,
+      name: updatedUserProfile.name,
+      email: updatedUserProfile.email,
+      isAdmin: updatedUserProfile.isAdmin,
+    };
+  } else return null;
+};

@@ -100,6 +100,46 @@ export function* deleteUser({id}) {
   }
 }
 
+export function* AdminUpdateUserDetails({id,user}) {
+  try {
+ 
+    const data = yield call(api.AdminUpdateUserDetails,id,user);
+
+    yield put({
+      type: CONSTANTS.ADMIN_USER_UPDATE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    yield put({
+      type: CONSTANTS.ADMIN_USER_UPDATE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+}
+
+export function* AdminGetUserDetails({id}) {
+  try {
+ 
+    const data = yield call(api.AdminGetUserDetails,id);
+
+    yield put({
+      type: CONSTANTS.ADMIN_GET_USER_DETAILS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    yield put({
+      type: CONSTANTS.ADMIN_GET_USER_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+}
+
 export function* getuserDetailsWatcher() {
   yield takeEvery(CONSTANTS.USER_DETAILS_REQUEST, getuserDetails);
 }
@@ -115,6 +155,12 @@ export function* getUsersListWatcher() {
 export function* deleteUserWatcher() {
   yield takeEvery(CONSTANTS.DELETE_USER_REQUEST, deleteUser);
 }
+export function* AdminUpdateUserDetailsWatcher() {
+  yield takeEvery(CONSTANTS.ADMIN_USER_UPDATE_REQUEST, AdminUpdateUserDetails);
+}
+export function* AdminGetUserDetailsWatcher() {
+  yield takeEvery(CONSTANTS.ADMIN_GET_USER_DETAILS_REQUEST, AdminGetUserDetails);
+}
 
 export default function* productSaga() {
   yield all([
@@ -123,5 +169,7 @@ export default function* productSaga() {
     resetUserDetailsWatcher(),
     getUsersListWatcher(),
     deleteUserWatcher(),
+    AdminUpdateUserDetailsWatcher(),
+    AdminGetUserDetailsWatcher()
   ]);
 }

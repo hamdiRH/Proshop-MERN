@@ -48,7 +48,7 @@ const Profile = () => {
         email: user.email,
       });
     }
-  }, [user, dispatch, history]);
+  }, [user, dispatch, history,updatedUser]);
   const submitHandler = (e) => {
     e.preventDefault();
     if (userData.password !== userData.confirmPassword)

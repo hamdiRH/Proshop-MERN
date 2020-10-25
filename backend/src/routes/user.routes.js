@@ -8,14 +8,18 @@ const router = express.Router();
 
 router.post('/login', validate(userValidation.login), userController.authUser);
 router.post('/register', validate(userValidation.register), userController.registerUser);
+
+router.get('/', auth, admin, userController.getAllUsers);
 router
   .route('/profile')
   .get(auth, userController.getUserProfile)
   .put(auth, validate(userValidation.updateProfile), userController.updateProfile);
 
-router.get('/', auth, admin, userController.getAllUsers);
-router.get('/:id', auth, admin, userController.getUserById);
-router.delete('/:id', auth, admin, userController.deleteUserById);
+router
+  .route('/:id')
+  .get(auth, admin, userController.getUserById)
+  .delete(auth, admin, userController.deleteUserById)
+  .put(auth, admin, userController.updateUserById);
 
 export default router;
 
@@ -192,8 +196,7 @@ export default router;
  *                message: Unauthorized or Invalid data
  */
 
-
- /**
+/**
  * @swagger
  * path:
  *  /user:
@@ -212,13 +215,39 @@ export default router;
  *                 $ref: '#/components/schemas/User'
  * */
 
-  /**
+/**
  * @swagger
  * path:
  *  /user/{id}:
  *    delete:
  *      summary: delete user By Id
  *      description: delete user By Id
+ *      tags: [User]
+ *      security:
+ *        - bearerAuth: []
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          required: true
+ *          schema:
+ *            type: string
+ *          description: user id
+ *      responses:
+ *        "200":
+ *          description: OK
+ *          content:
+ *            application/json:
+ *              schema:
+ *                 $ref: '#/components/schemas/User'
+ * */
+
+/**
+ * @swagger
+ * path:
+ *  /user/{id}:
+ *    get:
+ *      summary: get user By Id
+ *      description: get user By Id
  *      tags: [User]
  *      security:
  *        - bearerAuth: []

@@ -6,14 +6,25 @@ export const initialState = {
     userInfo: false,
     usersList: false,
     deleteUser: false,
+    userInfoAdmin: false,
+    updateUserAdmin: false,
   },
   data: {
     user: {},
     userInfo: {},
     usersList: [],
     deleteUser: { success: false },
+    userInfoAdmin: {},
+    updateUserAdmin: false,
   },
-  error: { user: '', userInfo: '', usersList: '', deleteUser: '' },
+  error: {
+    user: '',
+    userInfo: '',
+    usersList: '',
+    deleteUser: '',
+    userInfoAdmin: '',
+    updateUserAdmin: '',
+  },
 };
 
 const reducer = (state = initialState, { type, payload }) =>
@@ -69,6 +80,46 @@ const reducer = (state = initialState, { type, payload }) =>
         draft.data.deleteUser = { success: false };
         draft.error.deleteUser = payload;
         break;
+      case CONSTANTS.ADMIN_GET_USER_DETAILS_REQUEST:
+        draft.loading.userInfoAdmin = true;
+        draft.data.userInfoAdmin = {};
+        break;
+      case CONSTANTS.ADMIN_GET_USER_DETAILS_SUCCESS:
+        draft.loading.userInfoAdmin = false;
+        draft.data.userInfoAdmin = payload;
+        break;
+      case CONSTANTS.ADMIN_GET_USER_DETAILS_FAIL:
+        draft.loading.userInfoAdmin = false;
+        draft.error.userInfoAdmin = payload;
+        draft.data.userInfoAdmin = {};
+        break;
+
+      case CONSTANTS.ADMIN_USER_UPDATE_REQUEST:
+        draft.loading.updateUserAdmin = true;
+        draft.data.updateUserAdmin = false;
+        break;
+      case CONSTANTS.ADMIN_USER_UPDATE_SUCCESS:
+        draft.loading.updateUserAdmin = false;
+        draft.data.updateUserAdmin = true;
+        break;
+      case CONSTANTS.ADMIN_USER_UPDATE_FAIL:
+        draft.loading.updateUserAdmin = false;
+        draft.error.userInfoAdmin = payload;
+        draft.data.updateUserAdmin = false;
+
+        break;
+      case CONSTANTS.ADMIN_RESET_UPDATE_USER:
+        draft.loading.updateUserAdmin = false;
+        draft.error.userInfoAdmin = '';
+        draft.data = {
+          user: {},
+          userInfo: {},
+          usersList: [],
+          deleteUser: { success: false },
+          userInfoAdmin: {},
+          updateUserAdmin: false,
+        };
+
       default:
         return draft;
     }

@@ -88,3 +88,16 @@ export const getUserById = asyncHandler(async (req, res) => {
   }
 });
 
+
+//@des update one user By Id
+//@route PUT /api/user/id
+//@access Private /Admin
+export const updateUserById = asyncHandler(async (req, res) => {
+  const user = await userService.updateUserById(req);
+  if (user) res.status(200).send(user);
+  else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+});
+

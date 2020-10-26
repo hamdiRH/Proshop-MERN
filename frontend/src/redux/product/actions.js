@@ -20,7 +20,6 @@ export const updateProduct = (id,product) => ({
   product
 });
 
-export const createProduct = (product) => ({
+export const createProduct = () => ({
   type: CONSTANTS.CREATE_PRODUCT_REQUEST,
-  product
 });

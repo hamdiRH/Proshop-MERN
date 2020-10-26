@@ -133,6 +133,24 @@ components:
                     type: number
                 message:
                     type: string
+        File:
+            type: object
+            properties:
+                id:
+                    type: string
+                fileName:
+                    type: string
+                path:
+                    type: string
+                originalName:
+                    type: string
+                fileExtension:
+                    type: string
+                fileSize:
+                    type: number
+                user:
+                    type: object
+                    ref: '#/components/schemas/User'
     securitySchemes:
         bearerAuth:
             type: http

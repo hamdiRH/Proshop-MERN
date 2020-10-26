@@ -9,6 +9,20 @@ const selectProductsData = createSelector(
   selectProducts,
   (substate) => substate.data.products,
 );
+const selectNewProduct = createSelector(
+  selectProducts,
+  (substate) => substate.data.newProduct,
+);
+const selectSuccessUpdate = createSelector(
+  selectProducts,
+  (substate) => substate.data.updateProduct.success,
+);
+
+
+const selectProductDelete = createSelector(
+  selectProducts,
+  (substate) => substate.data.deleteProduct,
+);
 
 const selectProductData = createSelector(
   selectProducts,
@@ -27,8 +41,11 @@ const selectProductError = createSelector(
 
 export default makeSelectProducts;
 export {
+  selectProductDelete,
   selectProductsData,
   selectProductData,
   selectProductLoading,
   selectProductError,
+  selectNewProduct,
+  selectSuccessUpdate
 };

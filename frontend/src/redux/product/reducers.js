@@ -11,7 +11,8 @@ export const initialState = {
     products: [],
     product: { reviews: [] },
     deleteProduct: false,
-    updateProduct: {},
+    updateProduct: { data: {}, success: false },
+    newProduct: { data: {}, success: false },
   },
   error: { products: '', product: '', deleteProduct: '', updateProduct: '' },
 };
@@ -60,11 +61,16 @@ const reducer = (state = initialState, { type, payload }) =>
         break;
       case CONSTANTS.UPDATE_PRODUCT_SUCCESS:
         draft.loading.updateProduct = false;
-        draft.data.updateProduct = payload;
+        draft.data.updateProduct = { data: payload, success: true};
         break;
       case CONSTANTS.UPDATE_PRODUCT_FAIL:
         draft.loading.updateProduct = false;
         draft.error.updateProduct = payload;
+        break;
+      case 'PRODUCT_UPDATE_RESET':
+        draft.loading.updateProduct = false;
+        draft.data.updateProduct = { };
+        draft.error.updateProduct = '';
         break;
 
       case CONSTANTS.CREATE_PRODUCT_REQUEST:
@@ -72,13 +78,18 @@ const reducer = (state = initialState, { type, payload }) =>
         break;
       case CONSTANTS.CREATE_PRODUCT_SUCCESS:
         draft.loading.newProduct = false;
-        draft.data.newProduct = payload;
+        draft.data.newProduct = { data: payload, success: true };
         break;
       case CONSTANTS.CREATE_PRODUCT_FAIL:
         draft.loading.newProduct = false;
         draft.error.newProduct = payload;
         break;
-        
+      case CONSTANTS.CREATE_PRODUCT_RESET:
+        draft.loading.newProduct = false;
+        draft.error.newProduct = '';
+        draft.data.newProduct = {};
+        break;
+
       default:
         return draft;
     }

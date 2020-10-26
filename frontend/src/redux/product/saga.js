@@ -77,9 +77,9 @@ export function* updateProduct({ id, product }) {
   }
 }
 
-export function* createNewProduct({ product }) {
+export function* createNewProduct() {
   try {
-    const data = yield call(api.createProduct, product);
+    const data = yield call(api.createProduct);
 
     yield put({
       type: CONSTANTS.CREATE_PRODUCT_SUCCESS,

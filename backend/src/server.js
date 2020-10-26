@@ -6,7 +6,7 @@ import routes from './routes';
 import morgan from 'morgan'
 import connectDB from "./config/db.js";
 import { notFound, errorHandler } from './middleware/errorMiddleware'
-
+import path from 'path'
 import products from "./data/products";
 const app = express();
 // dotenv.config();

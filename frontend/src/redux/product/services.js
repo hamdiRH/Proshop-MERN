@@ -49,11 +49,11 @@ export const deleteProduct = async (id) => {
   }
 };
 
-export const createProduct = async (product) => {
+export const createProduct = async () => {
   try {
     const { data } = await axios.post(
       `${CONSTANTS.BaseApi}${CONSTANTS.products.create}`,
-      product,
+      {},
       requestHeader(),
     );
     return data;

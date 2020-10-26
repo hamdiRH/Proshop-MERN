@@ -96,6 +96,25 @@ export function* createNewProduct() {
   }
 }
 
+export function* uploadFile({file}) {
+  try {
+    const data = yield call(api.uploadFile,file);
+
+    yield put({
+      type: CONSTANTS.UPLOAD_FILE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    yield put({
+      type: CONSTANTS.UPLOAD_FILE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+}
+
 export function* fetchProductsListWatcher() {
   yield takeEvery(CONSTANTS.PRODUCT_LIST_REQUEST, fetchProductsList);
 }
@@ -111,6 +130,9 @@ export function* updateProductWatcher() {
 export function* createNewProductWatcher() {
   yield takeEvery(CONSTANTS.CREATE_PRODUCT_REQUEST, createNewProduct);
 }
+export function* uploadFileWatcher() {
+  yield takeEvery(CONSTANTS.UPLOAD_FILE_REQUEST, uploadFile);
+}
 export default function* productSaga() {
   yield all([
     fetchProductsListWatcher(),
@@ -118,5 +140,6 @@ export default function* productSaga() {
     deleteProductWatcher(),
     updateProductWatcher(),
     createNewProductWatcher(),
+    uploadFileWatcher()
   ]);
 }

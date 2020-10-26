@@ -61,3 +61,18 @@ export const createProduct = async () => {
     throw error;
   }
 };
+
+export const uploadFile = async (file) => {
+  try {
+    const { data } = await axios.post(
+      `${CONSTANTS.BaseApi}${CONSTANTS.file.upload}`,
+      file,
+      requestHeader(),
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+

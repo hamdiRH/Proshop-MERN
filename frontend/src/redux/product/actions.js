@@ -23,3 +23,8 @@ export const updateProduct = (id,product) => ({
 export const createProduct = () => ({
   type: CONSTANTS.CREATE_PRODUCT_REQUEST,
 });
+
+export const uploadFile = (file) => ({
+  type: CONSTANTS.CREATE_PRODUCT_REQUEST,
+  file
+});

@@ -6,6 +6,7 @@ export const initialState = {
     product: false,
     deleteProduct: false,
     updateProduct: false,
+    file: false,
   },
   data: {
     products: [],
@@ -13,8 +14,15 @@ export const initialState = {
     deleteProduct: false,
     updateProduct: { data: {}, success: false },
     newProduct: { data: {}, success: false },
+    file: {},
   },
-  error: { products: '', product: '', deleteProduct: '', updateProduct: '' },
+  error: {
+    products: '',
+    product: '',
+    deleteProduct: '',
+    updateProduct: '',
+    file: '',
+  },
 };
 
 const reducer = (state = initialState, { type, payload }) =>
@@ -61,7 +69,7 @@ const reducer = (state = initialState, { type, payload }) =>
         break;
       case CONSTANTS.UPDATE_PRODUCT_SUCCESS:
         draft.loading.updateProduct = false;
-        draft.data.updateProduct = { data: payload, success: true};
+        draft.data.updateProduct = { data: payload, success: true };
         break;
       case CONSTANTS.UPDATE_PRODUCT_FAIL:
         draft.loading.updateProduct = false;
@@ -69,7 +77,7 @@ const reducer = (state = initialState, { type, payload }) =>
         break;
       case 'PRODUCT_UPDATE_RESET':
         draft.loading.updateProduct = false;
-        draft.data.updateProduct = { };
+        draft.data.updateProduct = {};
         draft.error.updateProduct = '';
         break;
 
@@ -88,6 +96,18 @@ const reducer = (state = initialState, { type, payload }) =>
         draft.loading.newProduct = false;
         draft.error.newProduct = '';
         draft.data.newProduct = {};
+        break;
+
+      case CONSTANTS.UPLOAD_FILE_REQUEST:
+        draft.loading.file = true;
+        break;
+      case CONSTANTS.UPLOAD_FILE_SUCCESS:
+        draft.loading.file = false;
+        draft.data.file = payload;
+        break;
+      case CONSTANTS.UPLOAD_FILE_FAIL:
+        draft.loading.file = false;
+        draft.error.file = payload;
         break;
 
       default:

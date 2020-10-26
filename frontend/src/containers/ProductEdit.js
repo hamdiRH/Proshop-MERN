@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Image } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
@@ -9,6 +9,7 @@ import FormContainer from '../components/FormContainer';
 
 import { listProductDetails, updateProduct } from '../redux/product/actions';
 import {
+  selectFileUpload,
   selectSuccessUpdate,
   selectProductData,
   selectProductLoading,
@@ -29,10 +30,10 @@ const ProductEdit = ({ match, history }) => {
 
   const dispatch = useDispatch();
 
+  const fileUploaded = useSelector(selectFileUpload);
   const product = useSelector(selectProductData);
   const { product: loading } = useSelector(selectProductLoading);
   const { product: error } = useSelector(selectProductError);
-
 
   const successUpdate = useSelector(selectSuccessUpdate);
   const { updateProduct: loadingUpdate } = useSelector(selectProductLoading);
@@ -58,21 +59,25 @@ const ProductEdit = ({ match, history }) => {
   }, [dispatch, history, productId, product, successUpdate]);
 
   const uploadFileHandler = async (e) => {
-    const file = e.target.files[0];
     const formData = new FormData();
-    formData.append('image', file);
+    formData.append('file', e.target.files[0]);
     setUploading(true);
-
+    console.log(formData);
     try {
       const config = {
         headers: {
           'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       };
 
-      const { data } = await axios.post('/api/upload', formData, config);
-
-      setImage(data);
+      const { data } = await axios.post(
+        'http://localhost:5000/api/file/upload',
+        formData,
+        config,
+      );
+      const filePath = 'http://localhost:5000/api/file/download/';
+      setImage(filePath + data.data._id);
       setUploading(false);
     } catch (error) {
       console.error(error);
@@ -133,12 +138,13 @@ const ProductEdit = ({ match, history }) => {
 
             <Form.Group controlId="image">
               <Form.Label>Image</Form.Label>
-              <Form.Control
+              {/* <Form.Control
                 type="text"
                 placeholder="Enter image url"
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
-              ></Form.Control>
+              ></Form.Control> */}
+              <Image src={image} fluid/>
               <Form.File
                 id="image-file"
                 label="Choose File"

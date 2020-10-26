@@ -4,7 +4,10 @@ import { initialState } from './reducers';
 const selectProducts = (state) => state.productList || initialState;
 
 const makeSelectProducts = createSelector(selectProducts, (substate) => substate);
-
+const selectFileUpload =createSelector(
+  selectProducts,
+  (substate) => substate.data.file,
+);
 const selectProductsData = createSelector(
   selectProducts,
   (substate) => substate.data.products,
@@ -47,5 +50,6 @@ export {
   selectProductLoading,
   selectProductError,
   selectNewProduct,
-  selectSuccessUpdate
+  selectSuccessUpdate,
+  selectFileUpload,
 };

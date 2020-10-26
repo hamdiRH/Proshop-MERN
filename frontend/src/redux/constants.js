@@ -28,3 +28,6 @@ export const order = {
 export const config = {
   paypalClientId: '/config/paypal',
 };
+export const file = {
+  upload: '/file/upload',
+};

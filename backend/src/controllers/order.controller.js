@@ -29,7 +29,16 @@ export const updateOrderToPaid = asyncHandler(async (req, res) => {
 //@route GET /api/order/myorders
 //@access Private
 export const getMyOrders = asyncHandler(async (req, res) => {
-  console.log("a3333")
   const orders = await orderService.getMyOrders(req);
   res.status(200).send(orders);
 });
+
+//@des Get Logged in user orders
+//@route GET /api/order/myorders
+//@access Private
+export const getAllorders = asyncHandler(async (req, res) => {
+  const orders = await orderService.getAllorders(req);
+  res.status(200).send(orders);
+});
+
+

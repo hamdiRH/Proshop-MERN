@@ -100,7 +100,7 @@ const ProductEdit = ({ match, history }) => {
       }),
     );
   };
-
+console.log(image)
   return (
     <>
       <Link to="/admin/productlist" className="btn btn-light my-3">

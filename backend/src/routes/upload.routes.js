@@ -6,7 +6,7 @@ const router = express.Router()
 
 
 router.post('/upload',  auth, admin , uploadController.uploadFile);
-router.get('/download/:id',  auth, admin , uploadController.getFile);
+router.get('/download/:id', uploadController.getFile);
 
   
 export default router

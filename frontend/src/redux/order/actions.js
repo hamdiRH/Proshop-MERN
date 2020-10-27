@@ -18,7 +18,7 @@ export const updateOrderToPaid = (id, body) => ({
 
 export const updateOrderToDelivred = (id) => ({
   type: CONSTANTS.ORDER_DELIVRED_REQUEST,
-  orderId: id,
+  id,
 });
 
 export const getConfig = () => ({

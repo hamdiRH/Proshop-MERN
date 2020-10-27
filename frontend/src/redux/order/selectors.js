@@ -24,6 +24,10 @@ const selectSuccessOrder = createSelector(
   selectCart,
   (substate) => substate.data.success,
 );
+const selectSuccessDelivred = createSelector(
+  selectCart,
+  (substate) => substate.data.delivred,
+);
 const selectClientId = createSelector(
   selectCart,
   (substate) => substate.data.ClientID,
@@ -43,6 +47,7 @@ export {
   selectOrderData,
   selectOrderDetailsData,
   selectSuccessOrder,
+  selectSuccessDelivred,
   selectLoadingOrder,
   selectErrorOrder,
   selectClientId,

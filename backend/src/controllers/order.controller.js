@@ -29,6 +29,7 @@ export const updateOrderToPaid = asyncHandler(async (req, res) => {
 //@route PUT /api/order/:id/delivred
 //@access Private/Admin
 export const updateOrderToDelivred = asyncHandler(async (req, res) => {
+  console.log('hiii')
   const order = await orderService.updateOrderToDelivred(req);
   res.status(200).send(order);
 });

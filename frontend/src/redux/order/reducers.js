@@ -127,6 +127,10 @@ const reducer = (state = initialState, { type, payload }) =>
         draft.loading.delivred = false;
         draft.error.delivred = payload;
         draft.data.delivred = false;
+        case CONSTANTS.ORDER_DELIVRED_RESET:
+          draft.loading.delivred = false;
+          draft.error.delivred = '';
+          draft.data.delivred = false;
 
         break;
 

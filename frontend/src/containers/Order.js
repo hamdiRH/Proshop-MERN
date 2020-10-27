@@ -1,34 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import _ from 'lodash';
 import { PayPalButton } from 'react-paypal-button-v2';
-import { Link, useParams } from 'react-router-dom';
-import { Row, Col, ListGroup, Image, Card } from 'react-bootstrap';
+import { Link, useParams, useHistory } from 'react-router-dom';
+import { Row, Col, ListGroup, Image, Card, Button } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-
+import { selectAuthData } from '../redux/auth/selectors';
 import {
   selectOrderDetailsData,
   selectClientId,
   selectLoadingOrder,
   selectErrorOrder,
+  selectSuccessDelivred,
 } from '../redux/order/selectors';
 import {
   getOrderDetails,
   getConfig,
   updateOrderToPaid,
   resetOrderPay,
+  updateOrderToDelivred,
 } from '../redux/order/actions';
 
 const Order = () => {
   const params = useParams();
+  const history = useHistory();
   const orderId = params.id;
   const [skdReady, setSdkReady] = useState(false);
   const { order, success: successPay } = useSelector(selectOrderDetailsData);
+  const successDeliver = useSelector(selectOrderDetailsData);
   const errorOrder = useSelector(selectErrorOrder);
   const loadingOrder = useSelector(selectLoadingOrder);
   const clientID = useSelector(selectClientId);
+  const userInfo = useSelector(selectAuthData);
   const dispatch = useDispatch();
   console.log(clientID);
   useEffect(() => {
@@ -51,9 +56,18 @@ const Order = () => {
       else setSdkReady(true);
     }
   }, [dispatch, orderId, successPay, order, clientID]);
+  useEffect(() => {
+    if (!userInfo) history.push('/login');
+    if (successDeliver) dispatch({ type: 'ORDER_DELIVRED_RESET' });
+  }, [successDeliver, dispatch]);
   const successPaymentHandler = (paymentResult) => {
     dispatch(updateOrderToPaid(orderId, paymentResult));
   };
+
+  const deliverHandler = () => {
+    dispatch(updateOrderToDelivred(orderId));
+  };
+
   return loadingOrder.orderItems ? (
     <Loader />
   ) : errorOrder.orderItems ? (
@@ -192,6 +206,21 @@ const Order = () => {
                   )}
                 </ListGroup.Item>
               )}
+              {loadingOrder.delivred && <Loader />}
+              {userInfo &&
+                userInfo.isAdmin &&
+                order.isPaid &&
+                !order.isDelivered && (
+                  <ListGroup.Item>
+                    <Button
+                      type="button"
+                      className="btn btn-block"
+                      onClick={deliverHandler}
+                    >
+                      Mark As Delivered
+                    </Button>
+                  </ListGroup.Item>
+                )}
             </ListGroup>
           </Card>
         </Col>

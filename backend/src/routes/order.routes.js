@@ -216,6 +216,32 @@ export default router;
  *                 $ref: '#/components/schemas/Order'
  * */
 
+/**
+ * @swagger
+ * path:
+ *  /order/{id}/delivred:
+ *    put:
+ *      summary: Order Delivred
+ *      description: Change status order to delivred
+ *      tags: [Order]
+ *      security:
+ *        - bearerAuth: []
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          required: true
+ *          schema:
+ *            type: string
+ *          description: order id
+ *      responses:
+ *        "200":
+ *          description: OK
+ *          content:
+ *            application/json:
+ *              schema:
+ *                 $ref: '#/components/schemas/Order'
+ * */
+
  /**
  * @swagger
  * path:
@@ -226,6 +252,13 @@ export default router;
  *      tags: [Order]
  *      security:
  *        - bearerAuth: []
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          required: true
+ *          schema:
+ *            type: string
+ *          description: order id
  *      responses:
  *        "200":
  *          description: OK

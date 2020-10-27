@@ -78,8 +78,9 @@ export const getAllOrders = async () => {
 
 export const DelivredOrder = async (id) => {
   try {
-    const { data } = await axios.post(
+    const { data } = await axios.put(
       `${CONSTANTS.BaseApi}${CONSTANTS.order.delivredOrder(id)}`,
+      {},
       requestHeader(),
     );
     return data;
@@ -87,4 +88,3 @@ export const DelivredOrder = async (id) => {
     throw error;
   }
 };
-

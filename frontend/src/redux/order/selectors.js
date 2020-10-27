@@ -12,7 +12,10 @@ const selectOrderDetailsData = createSelector(selectCart, (substate) => ({
   order: substate.data.orderDetails,
   success: substate.data.orderPaySuccess,
 }));
-
+const selectAllOrders = createSelector(
+  selectCart,
+  (substate) => substate.data.orders,
+);
 const selectMyOrders = createSelector(
   selectCart,
   (substate) => substate.data.myOrders,
@@ -43,5 +46,6 @@ export {
   selectLoadingOrder,
   selectErrorOrder,
   selectClientId,
-  selectMyOrders
+  selectMyOrders,
+  selectAllOrders,
 };

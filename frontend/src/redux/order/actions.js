@@ -11,9 +11,14 @@ export const getOrderDetails = (id) => ({
 });
 
 export const updateOrderToPaid = (id, body) => ({
-  type: CONSTANTS.GET_ORDER_DETAILS_REQUEST,
+  type: CONSTANTS.ORDER_PAY_REQUEST,
   orderId: id,
   paymentResult: body,
+});
+
+export const updateOrderToDelivred = (id) => ({
+  type: CONSTANTS.ORDER_DELIVRED_REQUEST,
+  orderId: id,
 });
 
 export const getConfig = () => ({
@@ -26,4 +31,8 @@ export const resetOrderPay = () => ({
 
 export const getMyOrders = () => ({
   type: CONSTANTS.GET_MY_ORDERS_REQUEST,
+});
+
+export const getAllOrders = () => ({
+  type: CONSTANTS.GET_ALL_ORDERS_REQUEST,
 });

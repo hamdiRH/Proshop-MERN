@@ -93,6 +93,41 @@ export function* getMyOrders() {
   }
 }
 
+export function* getAllOrders() {
+  try {
+    const data = yield call(api.getAllOrders);
+    yield put({
+      type: CONSTANTS.GET_ALL_ORDERS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    yield put({
+      type: CONSTANTS.GET_ALL_ORDERS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+}
+export function* DelivredOrder({id}) {
+  try {
+    const data = yield call(api.DelivredOrder,id);
+    yield put({
+      type: CONSTANTS.ORDER_DELIVRED_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    yield put({
+      type: CONSTANTS.ORDER_DELIVRED_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+}
+
 export function* createOrderWatcher() {
   yield takeEvery(CONSTANTS.CREATE_ORDER_REQUEST, createOrder);
 }
@@ -113,12 +148,22 @@ export function* getMyOrdersWatcher() {
   yield takeEvery(CONSTANTS.GET_MY_ORDERS_REQUEST, getMyOrders);
 }
 
+export function* getAllOrdersWatcher() {
+  yield takeEvery(CONSTANTS.GET_ALL_ORDERS_REQUEST, getAllOrders);
+}
+
+export function* DelivredOrderWatcher() {
+  yield takeEvery(CONSTANTS.ORDER_DELIVRED_REQUEST, DelivredOrder);
+}
+
 export default function* productSaga() {
   yield all([
     createOrderWatcher(),
     getOrderWatcher(),
     updateOrderToPaidWatcher(),
     getConfigWatcher(),
-    getMyOrdersWatcher()
+    getMyOrdersWatcher(),
+    getAllOrdersWatcher(),
+    DelivredOrderWatcher()
   ]);
 }

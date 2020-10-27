@@ -8,6 +8,7 @@ const router = express.Router();
 router.get('/myorders', auth, /** */ orderController.getMyOrders);
 router.get('/:id', auth, /** */ orderController.getOrderItemsById);
 router.put('/:id/pay', auth, /** */ orderController.updateOrderToPaid);
+router.put('/:id/delivred', auth,admin, /** */ orderController.updateOrderToDelivred);
 router.post('/', auth, /*validate(orderValidation.addOrderItems),*/ orderController.addOrderItems);
 router.get('/', auth, admin, orderController.getAllorders);
 
@@ -203,6 +204,25 @@ export default router;
  *    get:
  *      summary: Get Orders
  *      description: Get My Orders
+ *      tags: [Order]
+ *      security:
+ *        - bearerAuth: []
+ *      responses:
+ *        "200":
+ *          description: OK
+ *          content:
+ *            application/json:
+ *              schema:
+ *                 $ref: '#/components/schemas/Order'
+ * */
+
+ /**
+ * @swagger
+ * path:
+ *  /order:
+ *    get:
+ *      summary: Get All Orders
+ *      description: Get All Orders
  *      tags: [Order]
  *      security:
  *        - bearerAuth: []

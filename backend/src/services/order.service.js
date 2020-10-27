@@ -46,6 +46,16 @@ export const updateOrderToPaid = async ({ params, body }) => {
   return updatedOrder;
 };
 
+export const updateOrderToDelivred = async ({ params, body }) => {
+  const order = await Order.findOne({ _id: params.id });
+  if (!order) throw new Error('Order not found');
+  order.isDelivered = true;
+  order.deliveredAt = moment();
+  const updatedOrder = await order.save();
+  return updatedOrder;
+};
+
+
 export const getMyOrders = async ({ user }) => {
   const orders = await Order.find({ user: user._id });
   if (!orders) throw new Error('Orders not found');

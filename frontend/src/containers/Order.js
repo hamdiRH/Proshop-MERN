@@ -52,7 +52,6 @@ const Order = () => {
     }
   }, [dispatch, orderId, successPay, order, clientID]);
   const successPaymentHandler = (paymentResult) => {
-    console.log(paymentResult);
     dispatch(updateOrderToPaid(orderId, paymentResult));
   };
   return loadingOrder.orderItems ? (

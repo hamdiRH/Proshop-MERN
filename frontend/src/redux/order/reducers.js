@@ -7,6 +7,8 @@ export const initialState = {
     orderPay: false,
     ClientID: false,
     myOrders: false,
+    orders: false,
+    delivred: false,
   },
   data: {
     order: {},
@@ -17,6 +19,8 @@ export const initialState = {
     orderPaySuccess: false,
     ClientID: '',
     myOrders: [],
+    orders: [],
+    delivred: false,
   },
   error: {
     order: '',
@@ -24,6 +28,8 @@ export const initialState = {
     orderPay: '',
     ClientID: '',
     myOrders: '',
+    orders: '',
+    delivred: '',
   },
 };
 
@@ -90,12 +96,38 @@ const reducer = (state = initialState, { type, payload }) =>
         draft.loading.myOrders = true;
         break;
       case CONSTANTS.GET_MY_ORDERS_SUCCESS:
-        draft.loading.myOrders = true;
+        draft.loading.myOrders = false;
         draft.data.myOrders = payload;
         break;
       case CONSTANTS.GET_MY_ORDERS_FAIL:
-        draft.loading.myOrders = true;
+        draft.loading.myOrders = false;
         draft.error.myOrders = payload;
+        break;
+
+      case CONSTANTS.GET_ALL_ORDERS_REQUEST:
+        draft.loading.orders = true;
+        break;
+      case CONSTANTS.GET_ALL_ORDERS_SUCCESS:
+        draft.loading.orders = false;
+        draft.data.orders = payload;
+        break;
+      case CONSTANTS.GET_ALL_ORDERS_FAIL:
+        draft.loading.orders = false;
+        draft.error.orders = payload;
+        break;
+
+      case CONSTANTS.ORDER_DELIVRED_REQUEST:
+        draft.loading.delivred = true;
+        break;
+      case CONSTANTS.ORDER_DELIVRED_SUCCESS:
+        draft.loading.delivred = false;
+        draft.data.delivred = true;
+        break;
+      case CONSTANTS.ORDER_DELIVRED_FAIL:
+        draft.loading.delivred = false;
+        draft.error.delivred = payload;
+        draft.data.delivred = false;
+
         break;
 
       case CONSTANTS.RESET_ORDER:

@@ -21,8 +21,10 @@ export const users = {
 };
 export const order = {
   createOrder: '/order',
+  getAllOrder: '/order',
   getOrder: (id) => `/order/${id}`,
   updateOrderToPaid: (id) => `/order/${id}/pay`,
+  delivredOrder: (id) => `/order/${id}/delivred`,
   myOrders: '/order/myorders',
 };
 export const config = {

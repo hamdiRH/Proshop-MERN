@@ -63,3 +63,28 @@ export const getMyOrders = async () => {
     throw error;
   }
 };
+
+export const getAllOrders = async () => {
+  try {
+    const { data } = await axios.get(
+      `${CONSTANTS.BaseApi}${CONSTANTS.order.getAllOrder}`,
+      requestHeader(),
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const DelivredOrder = async (id) => {
+  try {
+    const { data } = await axios.post(
+      `${CONSTANTS.BaseApi}${CONSTANTS.order.delivredOrder(id)}`,
+      requestHeader(),
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+

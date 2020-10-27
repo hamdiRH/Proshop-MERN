@@ -25,6 +25,14 @@ export const updateOrderToPaid = asyncHandler(async (req, res) => {
   res.status(200).send(order);
 });
 
+//@des Update order to delevred
+//@route PUT /api/order/:id/delivred
+//@access Private/Admin
+export const updateOrderToDelivred = asyncHandler(async (req, res) => {
+  const order = await orderService.updateOrderToDelivred(req);
+  res.status(200).send(order);
+});
+
 //@des Get Logged in user orders
 //@route GET /api/order/myorders
 //@access Private
@@ -33,9 +41,9 @@ export const getMyOrders = asyncHandler(async (req, res) => {
   res.status(200).send(orders);
 });
 
-//@des Get Logged in user orders
-//@route GET /api/order/myorders
-//@access Private
+//@des Get all orders
+//@route GET /api/order
+//@access Private/Admin
 export const getAllorders = asyncHandler(async (req, res) => {
   const orders = await orderService.getAllorders(req);
   res.status(200).send(orders);

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import _ from 'lodash';
+import FacebookLogin from 'react-facebook-login';
+import GoogleLogin from 'react-google-login';
 import { Link, useLocation, useHistory } from 'react-router-dom';
 import { Row, Col, Button, Form } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,7 +9,7 @@ import { Helmet } from 'react-helmet';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import FormContainer from '../components/FormContainer';
-import { login } from '../redux/auth/actions';
+import { login, loginWithFG } from '../redux/auth/actions';
 import {
   selectAuthData,
   selectAuthLoading,
@@ -33,7 +35,14 @@ const Login = () => {
     e.preventDefault();
     dispatch(login({ email, password }));
   };
+  const responseFacebook = (response) => {
+    console.log(response);
+    loginWithFG(response);
+  };
 
+  const responseGoogle = (response) => {
+    console.log(response);
+  };
   return (
     <>
       <Helmet>
@@ -44,6 +53,22 @@ const Login = () => {
         <h1>Sign In</h1>
         {error.login && <Message variant="danger">{error.login}</Message>}
         {loading.login && <Loader />}
+        <div className="App">
+          [ ] <h3>LOGIN WITH FACEBOOK AND GOOGLE</h3>
+          <FacebookLogin
+            appId="350022262923111" //APP ID NOT CREATED YET
+            fields="name,email,picture"
+            callback={responseFacebook}
+          />
+          <br />
+          <br />
+          <GoogleLogin
+            clientId="" //CLIENTID NOT CREATED YET
+            buttonText="LOGIN WITH GOOGLE"
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+          />
+        </div>
         <Form onSubmit={submitHandler}>
           <Form.Group controlId="email">
             <Form.Label>Email Address</Form.Label>

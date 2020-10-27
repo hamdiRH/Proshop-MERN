@@ -4,7 +4,12 @@
 export const USER_LOGIN_REQUEST = 'USER_LOGIN_REQUEST'
 export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS'
 export const USER_LOGIN_FAIL = 'USER_LOGIN_FAIL'
-
+/**
+ * login with facebook or google
+ */
+export const USER_LOGIN_FG_REQUEST = 'USER_LOGIN_FG_REQUEST'
+export const USER_LOGIN_FG_SUCCESS = 'USER_LOGIN_FG_SUCCESS'
+export const USER_LOGIN_FG_FAIL = 'USER_LOGIN_FG_FAIL'
 /**
  * Register
  */

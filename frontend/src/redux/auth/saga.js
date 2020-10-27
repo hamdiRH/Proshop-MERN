@@ -21,6 +21,25 @@ export function* login({ payload }) {
     });
   }
 }
+export function* loginWithFG({ payload }) {
+  try {
+    const data = yield call(api.loginWithFG, payload);
+    yield put({
+      type: CONSTANTS.USER_LOGIN_FG_SUCCESS,
+      payload: data,
+    });
+    localStorage.setItem('userInfo', JSON.stringify(data));
+    localStorage.setItem('token', data.token);
+  } catch (error) {
+    yield put({
+      type: CONSTANTS.USER_LOGIN_FG_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+}
 
 export function* register({ payload }) {
   try {
@@ -49,7 +68,7 @@ export function* logout() {
       type: CONSTANTS.USER_LOGOUT_SUCCESS,
     });
     yield put({
-      type: 'RESET_ORDER'
+      type: 'RESET_ORDER',
     });
     localStorage.clear();
   } catch (error) {
@@ -70,6 +89,15 @@ export function* registerWatcher() {
   yield takeEvery(CONSTANTS.USER_REGISTER_REQUEST, register);
 }
 
+export function* loginWithFGWatcher() {
+  yield takeEvery(CONSTANTS.USER_LOGIN_FG_REQUEST, loginWithFG);
+}
+
 export default function* productSaga() {
-  yield all([loginWatcher(), logoutWatcher(), registerWatcher()]);
+  yield all([
+    loginWatcher(),
+    logoutWatcher(),
+    registerWatcher(),
+    loginWithFGWatcher(),
+  ]);
 }

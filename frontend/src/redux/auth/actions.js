@@ -5,6 +5,11 @@ export const login = (payload) => ({
   payload,
 });
 
+export const loginWithFG = (payload) => ({
+  type: CONSTANTS.USER_LOGIN_FG_REQUEST,
+  payload,
+});
+
 export const register = (payload) => ({
   type: CONSTANTS.USER_REGISTER_REQUEST,
   payload,
@@ -13,3 +18,5 @@ export const register = (payload) => ({
 export const logout = () => ({
   type: CONSTANTS.USER_LOGOUT_REQUEST,
 });
+
+

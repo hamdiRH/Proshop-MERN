@@ -10,6 +10,15 @@ export const loginService = async (body) => {
   }
 };
 
+export const loginWithFG = async (body) => {
+  try {
+    const { data } = await axios.post(`${CONSTANTS.BaseApi}${CONSTANTS.auth.loginFG}`,body);
+    return data
+  } catch (error) {
+      throw error
+  }
+};
+
 export const registerService = async (body) => {
   try {
     const { data } = await axios.post(`${CONSTANTS.BaseApi}${CONSTANTS.auth.register}`,body);

@@ -11,6 +11,7 @@ export const products = {
 };
 export const auth = {
   login: '/user/login',
+  loginFG: '/user/loginfg',
   register: '/user/register',
 };
 export const users = {

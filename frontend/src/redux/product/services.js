@@ -87,3 +87,15 @@ export const createReview = async (id, review) => {
     throw error;
   }
 };
+
+export const topProducts = async () => {
+  try {
+    const { data } = await axios.get(
+      `${CONSTANTS.BaseApi}${CONSTANTS.products.topProducts}`,
+      requestHeader(),
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};

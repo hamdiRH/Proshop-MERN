@@ -10,6 +10,7 @@ export const products = {
   update: (id) => `/product/${id}`,
   create: '/product',
   createReview: (id) => `/product/${id}/reviews`,
+  topProducts: '/product/top',
 };
 export const auth = {
   login: '/user/login',

@@ -2,9 +2,9 @@ import { takeEvery, put, all, call } from 'redux-saga/effects';
 import * as api from './services';
 import * as CONSTANTS from './constants';
 
-export function* fetchProductsList({keyword,pageNumber}) {
+export function* fetchProductsList({ keyword, pageNumber }) {
   try {
-    const data = yield call(api.fechProducts,keyword,pageNumber);
+    const data = yield call(api.fechProducts, keyword, pageNumber);
     yield put({
       type: CONSTANTS.PRODUCT_LIST_SUCCESS,
       payload: data,
@@ -134,6 +134,25 @@ export function* createProductReview({ id, review }) {
   }
 }
 
+export function* topProducts() {
+  try {
+    const data = yield call(api.topProducts);
+
+    yield put({
+      type: CONSTANTS.TOP_PRODUCT_LIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    yield put({
+      type: CONSTANTS.TOP_PRODUCT_LIST_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+}
+
 export function* fetchProductsListWatcher() {
   yield takeEvery(CONSTANTS.PRODUCT_LIST_REQUEST, fetchProductsList);
 }
@@ -155,7 +174,9 @@ export function* uploadFileWatcher() {
 export function* createProductReviewWatcher() {
   yield takeEvery(CONSTANTS.CREATE_PRODUCT_REVIEW_REQUEST, createProductReview);
 }
-
+export function* topProductsWatcher() {
+  yield takeEvery(CONSTANTS.TOP_PRODUCT_LIST_REQUEST, topProducts);
+}
 export default function* productSaga() {
   yield all([
     fetchProductsListWatcher(),
@@ -165,5 +186,6 @@ export default function* productSaga() {
     createNewProductWatcher(),
     uploadFileWatcher(),
     createProductReviewWatcher(),
+    topProductsWatcher(),
   ]);
 }

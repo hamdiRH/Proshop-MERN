@@ -36,3 +36,7 @@ export const createProductReview = (id, review) => ({
   id,
   review,
 });
+
+export const listTopProducts = () => ({
+  type: CONSTANTS.TOP_PRODUCT_LIST_REQUEST
+});

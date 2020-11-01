@@ -8,8 +8,10 @@ export const initialState = {
     updateProduct: false,
     file: false,
     review: false,
+    topProducts: false,
   },
   data: {
+    topProducts: [],
     products: {
       products: [],
     },
@@ -27,6 +29,7 @@ export const initialState = {
     updateProduct: '',
     file: '',
     review: '',
+    topProducts: '',
   },
 };
 
@@ -134,6 +137,19 @@ const reducer = (state = initialState, { type, payload }) =>
         draft.loading.review = false;
         draft.error.review = false;
         draft.data.review = { success: false };
+        break;
+
+      case CONSTANTS.TOP_PRODUCT_LIST_REQUEST:
+        draft.loading.topProducts = true;
+        break;
+      case CONSTANTS.TOP_PRODUCT_LIST_SUCCESS:
+        draft.loading.topProducts = false;
+        draft.data.topProducts = payload;
+        break;
+      case CONSTANTS.TOP_PRODUCT_LIST_FAIL:
+        draft.error.topProducts = payload;
+        draft.loading.topProducts = false;
+
         break;
 
       default:

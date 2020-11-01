@@ -7,6 +7,11 @@ const makeSelectProducts = createSelector(
   selectProducts,
   (substate) => substate,
 );
+
+const selectTopProduct = createSelector(
+  selectProducts,
+  (substate) => substate.data.topProducts,
+);
 const selectFileUpload = createSelector(
   selectProducts,
   (substate) => substate.data.file,
@@ -59,4 +64,5 @@ export {
   selectSuccessUpdate,
   selectFileUpload,
   selectProductsReview,
+  selectTopProduct,
 };

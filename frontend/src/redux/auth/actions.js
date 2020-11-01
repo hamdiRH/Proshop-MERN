@@ -5,6 +5,7 @@ export const login = (payload) => ({
   payload,
 });
 
+
 export const loginWithFG = (payload) => ({
   type: CONSTANTS.USER_LOGIN_FG_REQUEST,
   payload,

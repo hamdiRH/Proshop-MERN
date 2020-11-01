@@ -36,12 +36,12 @@ const Login = () => {
     dispatch(login({ email, password }));
   };
   const responseFacebook = (response) => {
-    console.log(response);
-    loginWithFG(response);
+    console.log('fb', response);
+    dispatch(loginWithFG(response));
   };
 
   const responseGoogle = (response) => {
-    console.log(response);
+    dispatch(loginWithFG({ name: response.nt.Ad, email: response.nt.Wt }));
   };
   return (
     <>
@@ -53,22 +53,37 @@ const Login = () => {
         <h1>Sign In</h1>
         {error.login && <Message variant="danger">{error.login}</Message>}
         {loading.login && <Loader />}
-        <div className="App">
-          [ ] <h3>LOGIN WITH FACEBOOK AND GOOGLE</h3>
-          <FacebookLogin
-            appId="350022262923111" //APP ID NOT CREATED YET
-            fields="name,email,picture"
-            callback={responseFacebook}
-          />
-          <br />
-          <br />
-          <GoogleLogin
-            clientId="" //CLIENTID NOT CREATED YET
-            buttonText="LOGIN WITH GOOGLE"
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
-          />
-        </div>
+        <h3>LOGIN WITH FACEBOOK OR GOOGLE</h3>
+        <Row>
+          <Col md={6}>
+            {' '}
+            <FacebookLogin
+              appId="350022262923111" //APP ID NOT CREATED YET
+              fields="name,email,picture"
+              callback={responseFacebook}
+              cssClass="btnFacebook"
+              icon={
+                <i className="fab fa-facebook" style={{ marginRight: '5px',fontSize:"15px"}} />
+              }
+              // textButton = "&nbsp;&nbsp;Sign In with Facebook"
+            />
+          </Col>
+          <Col md={6}>
+            <GoogleLogin
+              clientId="787746266033-f9sl6gnqm6lf2e6j19dg7nu61iqr9f6g.apps.googleusercontent.com" //CLIENTID NOT CREATED YET
+              buttonText="Login With Goole"
+              onSuccess={responseGoogle}
+              onFailure={responseGoogle}
+              cookiePolicy={'single_host_origin'}
+              className="btnGoogle"
+            >
+              {/* 
+            <span>&nbsp;&nbsp;Sign In with Google</span>                                                                */}
+            </GoogleLogin>
+          </Col>
+        </Row>
+        <h3>LOGIN WITH EMAIL</h3>
+
         <Form onSubmit={submitHandler}>
           <Form.Group controlId="email">
             <Form.Label>Email Address</Form.Label>

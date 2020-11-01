@@ -28,6 +28,18 @@ export const authUser = asyncHandler(async (req, res) => {
   }
 });
 
+//@des Auth user with fb or google & generate token
+//@route POST /api/user/loginfg
+//@access Public
+export const authUserFG = asyncHandler(async (req, res) => {
+  const user = await userService.authUserFG(req.body);
+  if (user) res.status(200).send(user);
+  else {
+    res.status(401);
+    throw new Error('Error');
+  }
+});
+
 //@des Get user profile
 //@route GET /api/user/profile
 //@access Private

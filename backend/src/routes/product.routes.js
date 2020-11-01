@@ -13,6 +13,9 @@ router
   .put(auth, admin, productController.updateProduct)
   .delete(auth, admin, productController.deleteProduct);
 
+router.post('/:id/reviews', auth, productController.createReview);
+
+
 export default router;
 
 /**

@@ -34,6 +34,32 @@ export const authUser = async ({ email, password }) => {
   } else return null;
 };
 
+export const authUserFG = async ({ email, name }) => {
+  const userExists = await User.findOne({ email });
+
+  if (userExists) {
+    return {
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+      token: generateToken(user._id),
+    };
+  } else {
+    const user = await User.create({
+      email,
+      name,
+    });
+    return {
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+      token: generateToken(user._id),
+    };
+  }
+};
+
 export const getProfile = async (req) => {
   const user = await User.findById(req.user._id);
   if (user)

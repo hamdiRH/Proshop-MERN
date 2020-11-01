@@ -7,6 +7,7 @@ import { auth, admin } from '../middleware/auth';
 const router = express.Router();
 
 router.post('/login', validate(userValidation.login), userController.authUser);
+router.post('/loginfg', userController.authUserFG);
 router.post('/register', validate(userValidation.register), userController.registerUser);
 
 router.get('/', auth, admin, userController.getAllUsers);

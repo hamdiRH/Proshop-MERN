@@ -52,3 +52,16 @@ export const createProduct = asyncHandler(async (req, res) => {
     throw new Error('Product not found');
   }
 }); 
+
+//@des create product review
+//@route POST /api/product/review/create
+//@access Private 
+export const createReview = asyncHandler(async (req, res) => {
+  const review = await productService.createReview(req,res);
+  if (review) res.status(200).send(review);
+  else {
+    res.status(401);
+    throw new Error('Product not found');
+  }
+}); 
+

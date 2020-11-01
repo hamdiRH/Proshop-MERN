@@ -40,6 +40,7 @@ const App = () => {
           <Route path="/register" component={Register} />
           <Route path="/product/:id" component={Product} />
           <Route path="/cart/:id?" component={Cart} />
+          <Route path="/search/:keyword" component={Home} exact />
           <Route path="/" component={Home} exact />
         </Container>
       </main>

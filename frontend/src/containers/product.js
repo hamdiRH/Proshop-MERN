@@ -38,7 +38,16 @@ const Product = () => {
   const loadingProductReview = loading.review;
 
   useEffect(() => {
-    dispatch(listProductDetails(params.id));
+
+
+    if (successProductReview) {
+      setRating(0)
+      setComment('')
+    }
+    if (!product._id || product._id !== params.id) {
+      dispatch(listProductDetails(params.id))
+      dispatch({ type: 'CREATE_PRODUCT_REVIEW_RESET' })
+    }
   }, [params, dispatch]);
   const addToCartHandler = () => {
     history.push(`/cart/${params.id}?qty=${qty}`);

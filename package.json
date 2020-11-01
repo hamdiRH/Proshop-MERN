@@ -5,13 +5,15 @@
   "main": "server.js",
   "scripts": {
     "build": "babel src --out-dir dist --source-maps inline --copy-files",
+    "build-front": "cd ./client && npm run build",
     "start": "npm run build && node dist/server.js",
     "restart": "rimraf dist && yarn build && yarn start",
     "server": "nodemon --exec yarn restart",
-    "client": "cd ../frontend && npm start",
+    "client": "cd ./client && npm start",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "data:import": "node  -r esm src/seeder",
-    "data:destroy": "node  -r esm src/seeder -d"
+    "data:destroy": "node  -r esm src/seeder -d",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "repository": {
     "type": "git",

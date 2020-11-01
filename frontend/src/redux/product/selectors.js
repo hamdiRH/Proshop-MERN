@@ -3,14 +3,21 @@ import { initialState } from './reducers';
 
 const selectProducts = (state) => state.productList || initialState;
 
-const makeSelectProducts = createSelector(selectProducts, (substate) => substate);
-const selectFileUpload =createSelector(
+const makeSelectProducts = createSelector(
+  selectProducts,
+  (substate) => substate,
+);
+const selectFileUpload = createSelector(
   selectProducts,
   (substate) => substate.data.file,
 );
 const selectProductsData = createSelector(
   selectProducts,
   (substate) => substate.data.products,
+);
+const selectProductsReview = createSelector(
+  selectProducts,
+  (substate) => substate.data.review,
 );
 const selectNewProduct = createSelector(
   selectProducts,
@@ -20,7 +27,6 @@ const selectSuccessUpdate = createSelector(
   selectProducts,
   (substate) => substate.data.updateProduct.success,
 );
-
 
 const selectProductDelete = createSelector(
   selectProducts,
@@ -52,4 +58,5 @@ export {
   selectNewProduct,
   selectSuccessUpdate,
   selectFileUpload,
+  selectProductsReview,
 };

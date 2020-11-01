@@ -39,11 +39,11 @@ export const authUserFG = async ({ email, name }) => {
 
   if (userExists) {
     return {
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      isAdmin: user.isAdmin,
-      token: generateToken(user._id),
+      _id: userExists._id,
+      name: userExists.name,
+      email: userExists.email,
+      isAdmin: userExists.isAdmin,
+      token: generateToken(userExists._id),
     };
   } else {
     const user = await User.create({

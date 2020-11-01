@@ -16,7 +16,7 @@ export const initialState = {
     updateProduct: { data: {}, success: false },
     newProduct: { data: {}, success: false },
     file: {},
-    review: {},
+    review: { success: false },
   },
   error: {
     products: '',
@@ -131,7 +131,7 @@ const reducer = (state = initialState, { type, payload }) =>
       case CONSTANTS.CREATE_PRODUCT_REVIEW_RESET:
         draft.loading.review = false;
         draft.error.review = false;
-        draft.data.review = {};
+        draft.data.review = { success: false };
         break;
 
       default:

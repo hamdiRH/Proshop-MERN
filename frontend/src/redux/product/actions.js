@@ -1,7 +1,9 @@
 import * as CONSTANTS from './constants';
 
-export const listProducts = () => ({
+export const listProducts = (keyword = '', pageNumber = '') => ({
   type: CONSTANTS.PRODUCT_LIST_REQUEST,
+  keyword,
+  pageNumber,
 });
 
 export const listProductDetails = (id) => ({

@@ -5,7 +5,7 @@ import * as productService from '../services/product.service';
 //@route GET /api/products
 //@access Public
 export const getProducts = asyncHandler(async (req, res) => {
-  const products = await productService.getAll();
+  const products = await productService.getAll(req);
   res.status(200).send(products);
 });
 
@@ -51,17 +51,28 @@ export const createProduct = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error('Product not found');
   }
-}); 
+});
 
 //@des create product review
 //@route POST /api/product/review/create
-//@access Private 
+//@access Private
 export const createReview = asyncHandler(async (req, res) => {
-  const review = await productService.createReview(req,res);
+  const review = await productService.createReview(req, res);
   if (review) res.status(200).send(review);
   else {
     res.status(401);
     throw new Error('Product not found');
   }
-}); 
+});
 
+// @desc    Get top rated products
+// @route   GET /api/products/top
+// @access  Public
+export const getTopProducts = asyncHandler(async (req, res) => {
+  const products = await productService.getTopProducts(req)
+  if (products) res.status(200).send(products);
+  else {
+    res.status(401);
+    throw new Error('Products not found');
+  }
+});

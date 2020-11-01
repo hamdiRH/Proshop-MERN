@@ -27,9 +27,8 @@ const ProductListScreen = ({ history, match }) => {
 
   const { products: loading } = useSelector(selectProductLoading);
   const { products: error } = useSelector(selectProductError);
-  const products = useSelector(selectProductsData);
-  const page = 1;
-  const pages = 1;
+  const {products,page,pages} = useSelector(selectProductsData);
+
 
   const successDelete = useSelector(selectProductDelete);
 

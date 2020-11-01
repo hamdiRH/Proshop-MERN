@@ -10,7 +10,9 @@ export const initialState = {
     review: false,
   },
   data: {
-    products: [],
+    products: {
+      products: [],
+    },
     product: { reviews: [] },
     deleteProduct: false,
     updateProduct: { data: {}, success: false },

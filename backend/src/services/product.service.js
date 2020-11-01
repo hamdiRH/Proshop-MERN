@@ -1,8 +1,21 @@
 import Product from '../models/product.model';
 
-export const getAll = async () => {
-  const products = await Product.find();
-  return products;
+export const getAll = async (req) => {
+  const pageSize = 2;
+  const page = Number(req.query.pageNumber) || 1;
+  const keyword = req.query.keyword
+    ? {
+        name: {
+          $regex: req.query.keyword,
+          $options: 'i',
+        },
+      }
+    : {};
+  const count = await Product.countDocuments({ ...keyword });
+  const products = await Product.find({ ...keyword })
+    .limit(pageSize)
+    .skip(pageSize * (page - 1));
+  return { products, page, pages: Math.ceil(count / pageSize) };
 };
 
 export const getById = async (id) => {
@@ -46,7 +59,7 @@ export const createProduct = async (req) => {
   return createdProduct;
 };
 
-export const createReview = async (req,res) => {
+export const createReview = async (req, res) => {
   const { rating, comment } = req.body;
 
   const product = await Product.findById(req.params.id);
@@ -73,9 +86,12 @@ export const createReview = async (req,res) => {
     product.rating = product.reviews.reduce((acc, item) => item.rating + acc, 0) / product.reviews.length;
 
     return await product.save();
-    
   } else {
     res.status(404);
     throw new Error('Product not found');
   }
+};
+
+export const getTopProducts = async (req) => {
+  return await Product.find({}).sort({ rating: -1 }).limit(3);
 };

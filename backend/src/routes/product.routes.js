@@ -6,6 +6,7 @@ import validate from '../middleware/validate';
 const router = express.Router();
 
 router.get('/', productController.getProducts);
+router.get('/top', productController.getTopProducts);
 router.post('/', auth, admin, productController.createProduct);
 router
   .route('/:id')

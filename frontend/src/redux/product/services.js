@@ -2,10 +2,10 @@ import axios from 'axios';
 import { requestHeader } from '../../helpers/requestHeader';
 import * as CONSTANTS from '../constants';
 
-export const fechProducts = async () => {
+export const fechProducts = async (keyword,pageNumber) => {
   try {
     const { data } = await axios.get(
-      `${CONSTANTS.BaseApi}${CONSTANTS.products.getAll}`,
+      `${CONSTANTS.BaseApi}${CONSTANTS.products.getAll(keyword,pageNumber)}`,
     );
     return data;
   } catch (error) {

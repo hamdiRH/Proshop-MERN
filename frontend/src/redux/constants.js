@@ -3,7 +3,8 @@
  */
 export const BaseApi = 'http://localhost:5000/api';
 export const products = {
-  getAll: '/product',
+  getAll: (keyword, pageNumber) =>
+    `/product?keyword=${keyword}&pageNumber=${pageNumber}`,
   getOne: (id) => `/product/${id}`,
   delete: (id) => `/product/${id}`,
   update: (id) => `/product/${id}`,

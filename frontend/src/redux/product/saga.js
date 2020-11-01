@@ -2,9 +2,9 @@ import { takeEvery, put, all, call } from 'redux-saga/effects';
 import * as api from './services';
 import * as CONSTANTS from './constants';
 
-export function* fetchProductsList() {
+export function* fetchProductsList({keyword,pageNumber}) {
   try {
-    const data = yield call(api.fechProducts);
+    const data = yield call(api.fechProducts,keyword,pageNumber);
     yield put({
       type: CONSTANTS.PRODUCT_LIST_SUCCESS,
       payload: data,

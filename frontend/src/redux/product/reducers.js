@@ -7,6 +7,7 @@ export const initialState = {
     deleteProduct: false,
     updateProduct: false,
     file: false,
+    review: false,
   },
   data: {
     products: [],
@@ -15,6 +16,7 @@ export const initialState = {
     updateProduct: { data: {}, success: false },
     newProduct: { data: {}, success: false },
     file: {},
+    review: {},
   },
   error: {
     products: '',
@@ -22,6 +24,7 @@ export const initialState = {
     deleteProduct: '',
     updateProduct: '',
     file: '',
+    review: '',
   },
 };
 
@@ -108,6 +111,27 @@ const reducer = (state = initialState, { type, payload }) =>
       case CONSTANTS.UPLOAD_FILE_FAIL:
         draft.loading.file = false;
         draft.error.file = payload;
+        break;
+
+      case CONSTANTS.CREATE_PRODUCT_REVIEW_REQUEST:
+        draft.loading.review = true;
+
+        break;
+
+      case CONSTANTS.CREATE_PRODUCT_REVIEW_SUCCESS:
+        draft.loading.review = false;
+        draft.data.review = { success: true };
+        break;
+
+      case CONSTANTS.CREATE_PRODUCT_REVIEW_FAIL:
+        draft.loading.review = false;
+        draft.error.review = payload;
+
+        break;
+      case CONSTANTS.CREATE_PRODUCT_REVIEW_RESET:
+        draft.loading.review = false;
+        draft.error.review = false;
+        draft.data.review = {};
         break;
 
       default:

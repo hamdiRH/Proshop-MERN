@@ -8,6 +8,7 @@ export const products = {
   delete: (id) => `/product/${id}`,
   update: (id) => `/product/${id}`,
   create: '/product',
+  createReview: (id) => `/product/${id}/reviews`,
 };
 export const auth = {
   login: '/user/login',

@@ -14,10 +14,10 @@ export const deleteProduct = (id) => ({
   id,
 });
 
-export const updateProduct = (id,product) => ({
+export const updateProduct = (id, product) => ({
   type: CONSTANTS.UPDATE_PRODUCT_REQUEST,
   id,
-  product
+  product,
 });
 
 export const createProduct = () => ({
@@ -26,5 +26,11 @@ export const createProduct = () => ({
 
 export const uploadFile = (file) => ({
   type: CONSTANTS.CREATE_PRODUCT_REQUEST,
-  file
+  file,
+});
+
+export const createProductReview = (id, review) => ({
+  type: CONSTANTS.CREATE_PRODUCT_REVIEW_REQUEST,
+  id,
+  review,
 });

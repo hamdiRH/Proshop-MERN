@@ -75,4 +75,15 @@ export const uploadFile = async (file) => {
   }
 };
 
-
+export const createReview = async (id, review) => {
+  try {
+    const { data } = await axios.post(
+      `${CONSTANTS.BaseApi}${CONSTANTS.products.createReview(id)}`,
+      review,
+      requestHeader(),
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};

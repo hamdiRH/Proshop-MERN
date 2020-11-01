@@ -96,9 +96,9 @@ export function* createNewProduct() {
   }
 }
 
-export function* uploadFile({file}) {
+export function* uploadFile({ file }) {
   try {
-    const data = yield call(api.uploadFile,file);
+    const data = yield call(api.uploadFile, file);
 
     yield put({
       type: CONSTANTS.UPLOAD_FILE_SUCCESS,
@@ -107,6 +107,25 @@ export function* uploadFile({file}) {
   } catch (error) {
     yield put({
       type: CONSTANTS.UPLOAD_FILE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+}
+
+export function* createProductReview({ id, review }) {
+  try {
+    const data = yield call(api.createReview, id, review);
+
+    yield put({
+      type: CONSTANTS.CREATE_PRODUCT_REVIEW_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    yield put({
+      type: CONSTANTS.CREATE_PRODUCT_REVIEW_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -133,6 +152,10 @@ export function* createNewProductWatcher() {
 export function* uploadFileWatcher() {
   yield takeEvery(CONSTANTS.UPLOAD_FILE_REQUEST, uploadFile);
 }
+export function* createProductReviewWatcher() {
+  yield takeEvery(CONSTANTS.CREATE_PRODUCT_REVIEW_REQUEST, createProductReview);
+}
+
 export default function* productSaga() {
   yield all([
     fetchProductsListWatcher(),
@@ -140,6 +163,7 @@ export default function* productSaga() {
     deleteProductWatcher(),
     updateProductWatcher(),
     createNewProductWatcher(),
-    uploadFileWatcher()
+    uploadFileWatcher(),
+    createProductReviewWatcher(),
   ]);
 }

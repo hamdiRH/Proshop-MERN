@@ -1,7 +1,7 @@
 /**
  * API CONSTANT
  */
-export const BaseApi = '/api';
+export const BaseApi = 'https://tech-proshop.herokuapp.com/api';
 export const products = {
   getAll: (keyword, pageNumber) =>
     `/product?keyword=${keyword}&pageNumber=${pageNumber}`,

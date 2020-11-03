@@ -16,7 +16,4 @@ router.use('/order', orderRoute);
 router.use('/config',configRoute);
 router.use('/file',uploadRoute);
 
-
-
-
 export default router;

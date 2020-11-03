@@ -1,7 +1,7 @@
 /**
  * API CONSTANT
  */
-export const BaseApi = 'http://localhost:5000/api';
+export const BaseApi = '/api';
 export const products = {
   getAll: (keyword, pageNumber) =>
     `/product?keyword=${keyword}&pageNumber=${pageNumber}`,

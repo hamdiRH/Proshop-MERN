@@ -13,7 +13,7 @@ const swaggerDef = {
   },
   servers: [
     {
-      url: `https://tech-proshop.herokuapp.com:${config.port}/api`,
+      url: `${config.host}:${config.port}/api`,
     },
   ],
 };

@@ -1,7 +1,7 @@
 /**
  * API CONSTANT
  */
-export const BaseApi = 'https://tech-proshop.herokuapp.com/api';
+export const BaseApi = 'http://localhost:5000/api';
 export const products = {
   getAll: (keyword, pageNumber) =>
     `/product?keyword=${keyword}&pageNumber=${pageNumber}`,
@@ -13,9 +13,9 @@ export const products = {
   topProducts: '/product/top',
 };
 export const auth = {
-  login: '/user/login',
-  loginFG: '/user/loginfg',
-  register: '/user/register',
+  login: '/auth/login',
+  loginFG: '/auth/loginfg',
+  register: '/auth/register',
 };
 export const users = {
   getDetails: (id) => `/user/${id}`,

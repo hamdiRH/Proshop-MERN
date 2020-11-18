@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { password } = require('./custom.validation');
+const { password, objectId } = require('./custom.validation');
 
 export const login = {
   body: Joi.object().keys({
@@ -21,5 +21,22 @@ export const updateProfile = {
     name: Joi.string(),
     email: Joi.string(),
     password: Joi.string(),
+  }),
+};
+
+export const userId = {
+  params: Joi.object().keys({
+    id: Joi.required().custom(objectId),
+  }),
+};
+
+export const updateUser = {
+  body: Joi.object().keys({
+    name: Joi.string(),
+    email: Joi.string(),
+    password: Joi.string(),
+  }),
+  params: Joi.object().keys({
+    id: Joi.required().custom(objectId),
   }),
 };

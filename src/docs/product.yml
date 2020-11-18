@@ -1,0 +1,54 @@
+paths:
+ /product:
+   get:
+     summary: Get all products
+     description: Fetch all products
+     tags: [Products]
+     responses:
+       "200":
+         description: OK
+         content:
+           application/json:
+             schema:
+                $ref: '#/components/schemas/Product'
+ /product/{id}:
+   get:
+     summary: Get a product
+     description: get one product by id
+     tags: [Products]
+     parameters:
+       - in: path
+         name: id
+         required: true
+         schema:
+           type: string
+         description: Product id
+     responses:
+       "200":
+         description: OK
+         content:
+           application/json:
+             schema:
+                $ref: '#/components/schemas/Product'
+   put:
+     summary: update product
+     description: Update product
+     tags: [Products]
+     responses:
+       "200":
+         description: OK
+         content:
+           application/json:
+             schema:
+                $ref: '#/components/schemas/Product'
+   delete:
+     summary: delete product
+     description: delete product
+     tags: [Products]
+     responses:
+       "200":
+         description: OK
+         content:
+           application/json:
+             schema:
+                $ref: '#/components/schemas/Product'

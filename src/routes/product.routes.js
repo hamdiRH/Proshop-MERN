@@ -5,9 +5,9 @@ import { auth, admin } from '../middleware/auth';
 import validate from '../middleware/validate';
 const router = express.Router();
 
-router.get('/', productController.getProducts);
+router.get('/', validate(productValidation.getAllProduct), productController.getProducts);
 router.get('/top', productController.getTopProducts);
-router.post('/', auth, admin, productController.createProduct);
+router.post('/', auth, admin, validate(productValidation.createProduct), productController.createProduct);
 router
   .route('/:id')
   .get(validate(productValidation.getById), productController.getProductById)
@@ -16,6 +16,4 @@ router
 
 router.post('/:id/reviews', auth, productController.createReview);
 
-
 export default router;
-

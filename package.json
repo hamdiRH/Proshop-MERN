@@ -14,7 +14,7 @@
     "data:import": "node  -r esm src/seeder",
     "data:destroy": "node  -r esm src/seeder -d",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build-front && npm run build",
-    "prestart": "npm run build --prefix client"
+    "prestartt": "npm run build --prefix client"
   },
   "repository": {
     "type": "git",

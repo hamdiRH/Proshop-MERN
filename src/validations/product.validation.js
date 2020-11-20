@@ -6,3 +6,14 @@ export const getById = {
     id: Joi.required().custom(objectId),
   }),
 };
+
+export const getAllProduct = {
+  query: Joi.object().keys({
+    pageNumber: Joi.number(),
+    keyword: Joi.string(),
+  }),
+};
+
+export const createProduct = {
+  body: Joi.object().keys({}).unknown(true),
+};
